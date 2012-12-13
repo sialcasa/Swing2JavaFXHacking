@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -26,6 +27,7 @@ import twitter4j.auth.AccessToken;
 
 import com.github.twitterswingsample.view.listener.ProgramCloser;
 import com.github.twitterswingsample.view.listener.UserSelectionFrameCreator;
+import com.github.twitterswingsample.view.listener.timelineloader.HomeTimelineLoader;
 import com.github.twitterswingsample.view.panels.TimelinePanel;
 
 public class MainFrame extends JFrame{
@@ -53,12 +55,16 @@ public class MainFrame extends JFrame{
 		file.add(exit);
 		jmb.add(file);
 		setJMenuBar(jmb);
+		
+		TimelinePanel homeTimeline = new TimelinePanel();
 		try {
-			add(new JScrollPane(new TimelinePanel(TwitterFactory.getSingleton().getHomeTimeline())), BorderLayout.CENTER);
-		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			homeTimeline.setContent(TwitterFactory.getSingleton().getHomeTimeline());
+		} catch (TwitterException e) {}
+		add(new JScrollPane(homeTimeline), BorderLayout.CENTER);
+		
+		JButton reloadHomeTimeline = new JButton("reload Hometimeline");
+		reloadHomeTimeline.addActionListener(new HomeTimelineLoader(homeTimeline));
+		add(reloadHomeTimeline, BorderLayout.SOUTH);
 	}
 	
 	public static void main(String[] args) throws Exception {
