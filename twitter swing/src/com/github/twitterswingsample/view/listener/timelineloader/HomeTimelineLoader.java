@@ -1,20 +1,19 @@
 package com.github.twitterswingsample.view.listener.timelineloader;
 
-import java.awt.event.ActionEvent;
-
 import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
+
+import com.github.twitterswingsample.model.Credentials;
 import com.github.twitterswingsample.view.panels.TimelinePanel;
 
 public class HomeTimelineLoader extends TimelineLoader{
 	
-	public HomeTimelineLoader(TimelinePanel panel) {
-		super(panel);
+	public HomeTimelineLoader(TimelinePanel panel, Credentials creds) {
+		super(panel, creds);
 	}
 
-	public void actionPerformed(ActionEvent arg0) {
+	public void run() {
 		try {
-			setTimelineContent(TwitterFactory.getSingleton().getHomeTimeline());
+			setTimelineContent(getTwitter().getHomeTimeline());
 		} catch (TwitterException e) {
 			//TODO error message
 		}
