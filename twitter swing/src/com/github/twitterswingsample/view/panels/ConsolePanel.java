@@ -5,9 +5,7 @@ import java.awt.Color;
 import java.awt.TextArea;
 import java.util.Date;
 
-import javax.swing.JEditorPane;
 import javax.swing.JPanel;
-import javax.swing.JTextPane;
 import javax.xml.ws.http.HTTPException;
 
 import twitter4j.TwitterException;

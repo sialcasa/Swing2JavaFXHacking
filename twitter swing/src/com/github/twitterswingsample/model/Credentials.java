@@ -51,7 +51,7 @@ public class Credentials {
 	}
 
 	private NodeList getUserList() throws SAXException, ParserConfigurationException, FileNotFoundException, IOException {
-		File f = new File(System.getProperty("user.dir") + "\\login.xml");
+		File f = new File(System.getProperty("user.dir") + "/login.xml");
 		FileInputStream fis = new FileInputStream(f);
 		BufferedInputStream bis = new BufferedInputStream(fis);
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();

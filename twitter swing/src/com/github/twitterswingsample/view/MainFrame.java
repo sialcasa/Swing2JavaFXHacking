@@ -9,8 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JSplitPane;
-
 import com.github.twitterswingsample.model.Credentials;
 import com.github.twitterswingsample.view.listener.ProgramCloser;
 import com.github.twitterswingsample.view.listener.UserSelectionFrameCreator;
@@ -43,13 +41,7 @@ public class MainFrame extends JFrame{
 		jmb.add(file);
 		setJMenuBar(jmb);
 		
-//		JSplitPane jsp = new JSplitPane();
-//		jsp.setOrientation(jsp.VERTICAL_SPLIT);
-//		jsp.setResizeWeight(0.75);
-//		jsp.setRightComponent(ConsolePanel.getSingleton());
-		
 		try {
-//			jsp.setLeftComponent(new UserPanel(new Credentials(0)));
 			add(new UserPanel(new Credentials(0)), BorderLayout.CENTER);
 		} catch (FileNotFoundException e) {
 			ConsolePanel.getSingleton().printMessage(new String[]{
@@ -66,7 +58,6 @@ public class MainFrame extends JFrame{
 		}
 
 		add(ConsolePanel.getSingleton(), BorderLayout.SOUTH);
-//		add(jsp, BorderLayout.CENTER);
 	}
 	
 	public static void main(String[] args) throws Exception {
