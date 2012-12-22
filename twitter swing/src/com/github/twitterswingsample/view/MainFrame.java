@@ -1,41 +1,26 @@
 package com.github.twitterswingsample.view;
 
 import java.awt.BorderLayout;
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JScrollPane;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
-import twitter4j.auth.AccessToken;
+import javax.swing.JSplitPane;
 
 import com.github.twitterswingsample.model.Credentials;
 import com.github.twitterswingsample.view.listener.ProgramCloser;
 import com.github.twitterswingsample.view.listener.UserSelectionFrameCreator;
-import com.github.twitterswingsample.view.listener.timelineloader.HomeTimelineLoader;
-import com.github.twitterswingsample.view.panels.TimelinePanel;
+import com.github.twitterswingsample.view.panels.ConsolePanel;
 import com.github.twitterswingsample.view.panels.UserPanel;
 
 public class MainFrame extends JFrame{
 	
 	public MainFrame() {
-		setBounds(50, 50, 600, 480);
+		setBounds(50, 0, 600, 700);
 		setTitle("Twitter4J Swing Sample");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new BorderLayout(5, 5));
@@ -58,11 +43,30 @@ public class MainFrame extends JFrame{
 		jmb.add(file);
 		setJMenuBar(jmb);
 		
+//		JSplitPane jsp = new JSplitPane();
+//		jsp.setOrientation(jsp.VERTICAL_SPLIT);
+//		jsp.setResizeWeight(0.75);
+//		jsp.setRightComponent(ConsolePanel.getSingleton());
+		
 		try {
+//			jsp.setLeftComponent(new UserPanel(new Credentials(0)));
 			add(new UserPanel(new Credentials(0)), BorderLayout.CENTER);
+		} catch (FileNotFoundException e) {
+			ConsolePanel.getSingleton().printMessage(new String[]{
+				"File 'login.xml' not found",
+				"See the project homepage for further information"
+			});
+		} catch (IOException e) {
+			ConsolePanel.getSingleton().printMessage(new String[]{
+				"File 'login.xml' destroyed",
+				"See the project homepage for further information"
+			});
 		} catch (Exception e) {
-			// TODO error message
+			ConsolePanel.getSingleton().printException("Internal Error. Please report the bug", e);
 		}
+
+		add(ConsolePanel.getSingleton(), BorderLayout.SOUTH);
+//		add(jsp, BorderLayout.CENTER);
 	}
 	
 	public static void main(String[] args) throws Exception {

@@ -1,13 +1,19 @@
 package com.github.twitterswingsample.model;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import twitter4j.auth.AccessToken;
 
@@ -16,11 +22,11 @@ public class Credentials {
 	private String consumerkey, consumersecret;
 	private AccessToken accessToken;
 
-	public Credentials(int i) throws Exception {
+	public Credentials(int i) throws FileNotFoundException, SAXException, ParserConfigurationException, IOException {
 		readValues((Element) getUserList().item(i));
 	}
 
-	public Credentials(String name) throws Exception {
+	public Credentials(String name) throws SAXException, FileNotFoundException, IOException, ParserConfigurationException {
 		NodeList list = getUserList();
 		
 		for (int i = 0; i < list.getLength(); i++) {
@@ -44,11 +50,13 @@ public class Credentials {
 		return accessToken;
 	}
 
-	private NodeList getUserList() throws Exception {
-		File file = new File("login.xml");
+	private NodeList getUserList() throws SAXException, ParserConfigurationException, FileNotFoundException, IOException {
+		File f = new File(System.getProperty("user.dir") + "\\login.xml");
+		FileInputStream fis = new FileInputStream(f);
+		BufferedInputStream bis = new BufferedInputStream(fis);
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
-		Document doc = db.parse(file);
+		Document doc = db.parse(bis);
 		doc.getDocumentElement().normalize();
 		return doc.getElementsByTagName("user");
 	}
