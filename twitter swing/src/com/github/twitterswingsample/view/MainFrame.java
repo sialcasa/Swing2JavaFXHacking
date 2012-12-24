@@ -9,6 +9,10 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import com.github.twitterswingsample.model.Credentials;
 import com.github.twitterswingsample.view.listener.ProgramCloser;
 import com.github.twitterswingsample.view.listener.UserSelectionFrameCreator;
@@ -42,7 +46,7 @@ public class MainFrame extends JFrame{
 		setJMenuBar(jmb);
 		
 		try {
-			add(new UserPanel(new Credentials(0)), BorderLayout.CENTER);
+			add(new UserPanel(new Credentials(0).getTwitter()), BorderLayout.CENTER);
 		} catch (FileNotFoundException e) {
 			ConsolePanel.getSingleton().printMessage(new String[]{
 				"File 'login.xml' not found",
@@ -50,11 +54,24 @@ public class MainFrame extends JFrame{
 			});
 		} catch (IOException e) {
 			ConsolePanel.getSingleton().printMessage(new String[]{
-				"File 'login.xml' destroyed",
-				"See the project homepage for further information"
+				"Unknown error"
+			});
+		} catch (SAXException e) {
+			ConsolePanel.getSingleton().printMessage(new String[]{
+				"damaged xml structure in file 'login.xml'",
+				"Repair it!"
+			});
+		} catch (ParserConfigurationException e) {
+			ConsolePanel.getSingleton().printMessage(new String[]{
+				"Internal Error",
+				"Please report this vagina"
 			});
 		} catch (Exception e) {
-			ConsolePanel.getSingleton().printException("Internal Error. Please report the bug", e);
+			ConsolePanel.getSingleton().printMessage(new String[]{
+				"File 'login.xml' not filled",
+				"You have to insert the credentials for your application!",
+				"See the project homepage for further information"
+			});
 		}
 
 		add(ConsolePanel.getSingleton(), BorderLayout.SOUTH);

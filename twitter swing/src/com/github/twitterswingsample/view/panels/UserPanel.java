@@ -5,17 +5,16 @@ import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
-import com.github.twitterswingsample.model.Credentials;
-import com.github.twitterswingsample.view.listener.timelineloader.HomeTimelineLoader;
+import twitter4j.Twitter;
+import com.github.twitterswingsample.view.listener.authorized.timelineloader.HomeTimelineLoader;
 
 public class UserPanel extends JPanel{
 
-	public UserPanel(Credentials creds) {
+	public UserPanel(Twitter twitter) {
 		setLayout(new BorderLayout(5, 5));
 		
-		TimelinePanel homeTimeline = new TimelinePanel();
-		HomeTimelineLoader homeTimelineLoader = new HomeTimelineLoader(homeTimeline, creds);
+		TimelinePanel homeTimeline = new TimelinePanel(twitter);
+		HomeTimelineLoader homeTimelineLoader = new HomeTimelineLoader(homeTimeline, twitter);
 		homeTimelineLoader.actionPerformed(null);
 		add(new JScrollPane(homeTimeline), BorderLayout.CENTER);
 		

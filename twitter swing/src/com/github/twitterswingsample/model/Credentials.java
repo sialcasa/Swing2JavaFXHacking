@@ -15,12 +15,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import twitter4j.Twitter;
+import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 
 public class Credentials {
 	
-	private String consumerkey, consumersecret;
-	private AccessToken accessToken;
+	private String consumerkey, consumersecret, accesstoken, accesstokensecret;
 
 	public Credentials(int i) throws FileNotFoundException, SAXException, ParserConfigurationException, IOException {
 		readValues((Element) getUserList().item(i));
@@ -37,7 +38,7 @@ public class Credentials {
 			}
 		}
 	}
-	
+
 	public String getConsumerkey() {
 		return consumerkey;
 	}
@@ -47,7 +48,14 @@ public class Credentials {
 	}
 
 	public AccessToken getAccessToken() {
-		return accessToken;
+		return new AccessToken(accesstoken, accesstokensecret);
+	}
+	
+	public Twitter getTwitter(){
+		Twitter twitter = new TwitterFactory().getInstance();
+		twitter.setOAuthConsumer(consumerkey, consumersecret);
+		twitter.setOAuthAccessToken(getAccessToken());
+		return twitter;
 	}
 
 	private NodeList getUserList() throws SAXException, ParserConfigurationException, FileNotFoundException, IOException {
@@ -61,7 +69,7 @@ public class Credentials {
 		return doc.getElementsByTagName("user");
 	}
 	
-	private void readValues(Element e){
+	private void readValues(Element e) {
 		Element subElement = (Element)e.getElementsByTagName("consumerkey").item(0);
 		consumerkey = subElement.getChildNodes().item(0).getNodeValue();
 		
@@ -69,9 +77,8 @@ public class Credentials {
 		consumersecret = subElement.getChildNodes().item(0).getNodeValue();
 		
 		subElement = (Element)e.getElementsByTagName("accesstoken").item(0);
-		String tmp1 = subElement.getChildNodes().item(0).getNodeValue();
+		accesstoken = subElement.getChildNodes().item(0).getNodeValue();
 		subElement = (Element)e.getElementsByTagName("accesstokensecret").item(0);
-		String tmp2 = subElement.getChildNodes().item(0).getNodeValue();
-		accessToken = new AccessToken(tmp1, tmp2);
+		accesstokensecret = subElement.getChildNodes().item(0).getNodeValue();
 	}
 }

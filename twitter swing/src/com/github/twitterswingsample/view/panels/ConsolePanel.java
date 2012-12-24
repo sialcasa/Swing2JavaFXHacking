@@ -37,49 +37,10 @@ public class ConsolePanel extends JPanel{
 	}
 	
 	public void printMessage(String[] message){
-		String tmp = messageHeader();
+		String tmp = "\n\n" + new Date() + ":";
 		for (int i = 0; i < message.length; i++) {
 			tmp += "\n" + message[i];
 		}
 		area.insert(tmp, area.getText().length());
-	}
-	
-	public void printException(String description, TwitterException e){
-		area.insert(messageHeader() +
-				"\nTwitter Exception" +
-				"\n" + description +
-				"\n" + e.getAccessLevel() +
-				"\n" + e.getErrorCode() +
-				"\n" + e.getExceptionCode() +
-				"\n" + e.getStatusCode() +
-				(e.isErrorMessageAvailable() ? "\n" + e.getErrorMessage() : "") +
-				"\n" + e.getMessage() +
-				"\n" + e.getLocalizedMessage() +
-				"\ncaused by network issue: " + e.isCausedByNetworkIssue() +
-				"\nretry after: " + e.getRetryAfter(),
-				area.getText().length());
-	}
-	
-	public void printException(String description, HTTPException e){
-		area.insert(messageHeader() +
-				"\nException" +
-				"\n" + description +
-				"\n" + e.getMessage() +
-				"\n" + e.getLocalizedMessage() +
-				"\n" + e.getStatusCode() +
-				"\n" + e.getCause(), area.getText().length());
-	}
-	
-	public void printException(String description, Exception e){
-		area.insert(messageHeader() +
-				"\nException" +
-				"\n" + description +
-				"\n" + e.getMessage() +
-				"\n" + e.getLocalizedMessage() +
-				"\n" + e.getCause(), area.getText().length());
-	}
-	
-	private String messageHeader(){
-		return "\n\n" + new Date() + ":";
 	}
 }
