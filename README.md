@@ -2,7 +2,7 @@
 
 A desktop client for Twitter.
 
-## Goal ##
+## Intention ##
 
 The goal is to write a desktop client that includes all functionalities the **Twitter API v1.1** offers.  
 Furthermore it should look as pretty as it's possible using Java Swing.
@@ -26,4 +26,4 @@ You generate them on the [Developers site of Twitter] (https://dev.twitter.com "
 
 **Programming Language:** Java  
 **GUI library used:** Swing  
-**Framework used:** Twitter4J 3.0.2  
+**Framework used:** Twitter4J 3.0.3
