@@ -17,7 +17,7 @@ import com.github.twitterswingsample.model.Credentials;
 import com.github.twitterswingsample.view.listener.ProgramCloser;
 import com.github.twitterswingsample.view.listener.UserSelectionFrameCreator;
 import com.github.twitterswingsample.view.panels.ConsolePanel;
-import com.github.twitterswingsample.view.panels.UserPanel;
+import com.github.twitterswingsample.view.panels.ClientUserPanel;
 
 public class MainFrame extends JFrame{
 	
@@ -46,7 +46,7 @@ public class MainFrame extends JFrame{
 		setJMenuBar(jmb);
 		
 		try {
-			add(new UserPanel(new Credentials(0).getTwitter()), BorderLayout.CENTER);
+			add(new ClientUserPanel(new Credentials(0).getTwitter()), BorderLayout.CENTER);
 		} catch (FileNotFoundException e) {
 			ConsolePanel.getSingleton().printMessage(new String[]{
 				"File 'login.xml' not found",

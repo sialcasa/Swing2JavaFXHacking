@@ -8,9 +8,9 @@ import javax.swing.JScrollPane;
 import twitter4j.Twitter;
 import com.github.twitterswingsample.view.listener.authorized.timelineloader.HomeTimelineLoader;
 
-public class UserPanel extends JPanel{
+public class ClientUserPanel extends JPanel{
 
-	public UserPanel(Twitter twitter) {
+	public ClientUserPanel(Twitter twitter) {
 		setLayout(new BorderLayout(5, 5));
 		
 		TimelinePanel homeTimeline = new TimelinePanel(twitter);
