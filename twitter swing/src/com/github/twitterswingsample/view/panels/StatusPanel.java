@@ -1,5 +1,8 @@
 package com.github.twitterswingsample.view.panels;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -8,6 +11,7 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -22,6 +26,8 @@ public class StatusPanel extends JPanel{
 
 	public StatusPanel(Twitter twitter, Status status) {
 		setLayout(new GridBagLayout());
+		
+		this.setBackground(Color.LIGHT_GRAY);
 		
 		User user = status.getUser();
 		
@@ -46,13 +52,21 @@ public class StatusPanel extends JPanel{
 		add(new JLabel("@" + user.getScreenName()), gbc);
 
 		gbc.gridy = 1;
-		add(new JLabel(status.getText()), gbc);
+		JEditorPane tweetText = new JEditorPane();
+		tweetText.setContentType("text/html");
+		tweetText.setText("<font color='#000000'>" + status.getText()
+	                + "</font>");
+	        tweetText.setPreferredSize(new Dimension(420, 45));
+	        tweetText.setEditable(false);
+	        tweetText.setBackground(Color.LIGHT_GRAY);
+		add(tweetText, gbc);
 
 		gbc.gridy = 2;
 		add(new JLabel(status.getCreatedAt() + ""), gbc);
 
 		gbc.gridy = 4;
 		JButton retweetBtn = new JButton("retweet");
+		retweetBtn.setBackground(new Color(0,172,237));
 		retweetBtn.addActionListener(new Retweeter(retweetBtn, twitter, status));
 		if(status.isRetweetedByMe()){
 			retweetBtn.setEnabled(false);
