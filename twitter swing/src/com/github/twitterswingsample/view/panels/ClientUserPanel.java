@@ -29,6 +29,7 @@ public class ClientUserPanel extends JPanel{
 		add(homeTimelineScrollPane, BorderLayout.CENTER);
 		
 		JButton reloadHomeTimeline = new JButton("reload Hometimeline");
+		reloadHomeTimeline.setBackground(new Color(0,172,237));
 		reloadHomeTimeline.addActionListener(homeTimelineLoader);
 		add(reloadHomeTimeline, BorderLayout.SOUTH);
 	}
