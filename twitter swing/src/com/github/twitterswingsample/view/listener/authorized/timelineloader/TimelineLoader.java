@@ -4,7 +4,6 @@ import java.util.List;
 import twitter4j.Status;
 import twitter4j.Twitter;
 
-import com.github.twitterswingsample.model.Credentials;
 import com.github.twitterswingsample.view.listener.authorized.AuthorizedAction;
 import com.github.twitterswingsample.view.panels.TimelinePanel;
 

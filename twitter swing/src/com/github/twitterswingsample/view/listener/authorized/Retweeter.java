@@ -6,7 +6,6 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
-import com.github.twitterswingsample.model.Credentials;
 import com.github.twitterswingsample.view.panels.ConsolePanel;
 
 public class Retweeter extends AuthorizedAction{

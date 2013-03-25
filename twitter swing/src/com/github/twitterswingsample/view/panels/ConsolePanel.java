@@ -6,9 +6,6 @@ import java.awt.TextArea;
 import java.util.Date;
 
 import javax.swing.JPanel;
-import javax.xml.ws.http.HTTPException;
-
-import twitter4j.TwitterException;
 
 public class ConsolePanel extends JPanel{
 
@@ -30,8 +27,8 @@ public class ConsolePanel extends JPanel{
 		area.setEditable(false);
 		area.setBackground(Color.WHITE);
 		area.setText("Welcome to Twitter4J Swing Sample" +
-				"\nby javaprogger" +
-				"\nhosted on GitHub: http://javaprogger.github.com/twitter4j-swing-sample/");
+				"\nby multiprogger" +
+				"\nhosted on GitHub: http://multiprogger.github.com/twitter4j-swing-sample/");
 		
 		add(area);
 	}

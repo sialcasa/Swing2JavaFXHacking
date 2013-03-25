@@ -2,16 +2,12 @@ package com.github.twitterswingsample.view.panels;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.util.List;
 import javax.swing.JPanel;
 
-import com.github.twitterswingsample.model.Credentials;
-
 import twitter4j.Status;
 import twitter4j.Twitter;
-import twitter4j.TwitterFactory;
 
 public class TimelinePanel extends JPanel{
 	
