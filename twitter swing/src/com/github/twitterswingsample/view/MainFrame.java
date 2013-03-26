@@ -19,6 +19,11 @@ import com.github.twitterswingsample.view.listener.UserSelectionFrameCreator;
 import com.github.twitterswingsample.view.panels.ConsolePanel;
 import com.github.twitterswingsample.view.panels.ClientUserPanel;
 
+/**
+ * The main window of the client
+ * 
+ * @author multiprogger
+ */
 public class MainFrame extends JFrame{
 	
 	public MainFrame() {

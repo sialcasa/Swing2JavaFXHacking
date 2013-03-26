@@ -7,7 +7,11 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.User;
 
-
+/**
+ * ActionListener that unfollows another user
+ * 
+ * @author multiprogger
+ */
 public class UnFollower extends AuthorizedAction{
 
 	private TwitterUserPanel panel;

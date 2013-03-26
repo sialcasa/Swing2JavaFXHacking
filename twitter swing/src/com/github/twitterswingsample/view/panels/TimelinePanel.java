@@ -9,6 +9,11 @@ import javax.swing.JPanel;
 import twitter4j.Status;
 import twitter4j.Twitter;
 
+/**
+ * Panel containing several {@link StatusPanel}
+ * 
+ * @author multiprogger
+ */
 public class TimelinePanel extends JPanel{
 	
 	private Twitter twitter;

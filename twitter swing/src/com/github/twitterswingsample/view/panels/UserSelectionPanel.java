@@ -5,6 +5,11 @@ import java.awt.BorderLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
+/**
+ * Panel for selecting an account
+ * 
+ * @author multiprogger
+ */
 public class UserSelectionPanel extends JPanel{
 
 	private JCheckBox allUsers;

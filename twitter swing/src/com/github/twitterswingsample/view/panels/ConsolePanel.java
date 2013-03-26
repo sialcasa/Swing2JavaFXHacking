@@ -7,6 +7,11 @@ import java.util.Date;
 
 import javax.swing.JPanel;
 
+/**
+ * Panel displaying messages about all the processes of the client
+ * 
+ * @author multiprogger
+ */
 public class ConsolePanel extends JPanel{
 
 	private static ConsolePanel SINGLETON;
@@ -33,6 +38,11 @@ public class ConsolePanel extends JPanel{
 		add(area);
 	}
 	
+	/**
+	 * Inserts a message into the textarea
+	 * 
+	 * @param message text to be displayed in the console. every field of the array gets a new line.
+	 */
 	public void printMessage(String[] message){
 		String tmp = "\n\n" + new Date() + ":";
 		for (int i = 0; i < message.length; i++) {

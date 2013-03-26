@@ -20,6 +20,11 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.User;
 
+/**
+ * Panel displaying some information about an single user
+ * 
+ * @author multiprogger
+ */
 public class TwitterUserPanel extends JPanel{
 	
 	private Twitter twitter;

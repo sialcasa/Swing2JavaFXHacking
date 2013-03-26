@@ -12,6 +12,11 @@ import twitter4j.User;
 import com.github.twitterswingsample.view.panels.ConsolePanel;
 import com.github.twitterswingsample.view.panels.TwitterUserPanel;
 
+/**
+ * MouseListener that creates a frame with {@link TwitterUserPanel} in it
+ * 
+ * @author multiprogger
+ */
 public class TwitterUserPresentation implements MouseListener, Runnable {
 
 	private Twitter twitter;

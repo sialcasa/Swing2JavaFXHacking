@@ -8,11 +8,23 @@ import twitter4j.TwitterException;
 
 import com.github.twitterswingsample.view.panels.ConsolePanel;
 
+/**
+ * ActionListener that retweets a status
+ * 
+ * @author multiprogger
+ */
 public class Retweeter extends AuthorizedAction{
 
 	private JButton btn;
 	private Status status;
 	
+	/**
+	 * 
+	 * 
+	 * @param btn
+	 * @param twitter 
+	 * @param status to be retweeted
+	 */
 	public Retweeter(JButton btn, Twitter twitter, Status status) {
 		super(twitter);
 		this.btn = btn;

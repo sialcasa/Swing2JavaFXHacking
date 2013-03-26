@@ -1,6 +1,7 @@
 package com.github.twitterswingsample.view.panels;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -21,6 +22,11 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.User;
 
+/**
+ * Panel displaying one status
+ * 
+ * @author multiprogger
+ */
 public class StatusPanel extends JPanel{
 
 	public StatusPanel(Twitter twitter, Status status) {
@@ -38,6 +44,7 @@ public class StatusPanel extends JPanel{
 			gbc.gridheight = 5;
 			JLabel label = new JLabel(new ImageIcon(new URL(user.getBiggerProfileImageURL())));
 			label.addMouseListener(new TwitterUserPresentation(twitter, user));
+			label.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			add(label, gbc);
 		} catch (MalformedURLException e) {
 			ConsolePanel.getSingleton().printMessage(new String[]{

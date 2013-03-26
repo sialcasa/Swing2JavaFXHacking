@@ -7,6 +7,11 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.User;
 
+/**
+ * ActionListener that follows another user
+ * 
+ * @author multiprogger
+ */
 public class Follower extends AuthorizedAction{
 
 	private TwitterUserPanel panel;

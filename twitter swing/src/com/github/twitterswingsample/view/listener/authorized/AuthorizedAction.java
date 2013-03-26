@@ -3,6 +3,11 @@ package com.github.twitterswingsample.view.listener.authorized;
 import twitter4j.Twitter;
 import com.github.twitterswingsample.view.listener.MultithreadingListener;
 
+/**
+ * Abstract ActionListener for server requests that need to be authorized
+ * 
+ * @author multiprogger
+ */
 public abstract class AuthorizedAction extends MultithreadingListener{
 	
 	private Twitter twitter;

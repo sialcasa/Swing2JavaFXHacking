@@ -7,6 +7,11 @@ import javax.swing.JFrame;
 
 import com.github.twitterswingsample.view.panels.UserSelectionPanel;
 
+/**
+ * ActionListener that creates a frame with an {@link UserSelectionPanel} in it
+ * 
+ * @author multiprogger
+ */
 public class UserSelectionFrameCreator implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {

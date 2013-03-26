@@ -19,14 +19,38 @@ import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 
+/**
+ * Handles consumerkey, consumersecret, accesstoken, and accesstokensecret for access to a twitter account.
+ * Reads out 'login.xml' and puts the four strings into a {@link Twitter} object.
+ * 
+ * @author multiprogger
+ */
 public class Credentials {
 	
 	private String consumerkey, consumersecret, accesstoken, accesstokensecret;
 
+	/**
+	 * Defines, of which account listed in 'login.xml' the access data have to be used
+	 * 
+	 * @param i index of account in 'login.xml'
+	 * @throws FileNotFoundException
+	 * @throws SAXException
+	 * @throws ParserConfigurationException
+	 * @throws IOException
+	 */
 	public Credentials(int i) throws FileNotFoundException, SAXException, ParserConfigurationException, IOException {
 		readValues((Element) getUserList().item(i));
 	}
 
+	/**
+	 * Defines, of which account listed in 'login.xml' the access data have to be used
+	 * 
+	 * @param name value inserted as attribute of the xml tag "user" in 'login.xml'
+	 * @throws FileNotFoundException
+	 * @throws SAXException
+	 * @throws ParserConfigurationException
+	 * @throws IOException
+	 */
 	public Credentials(String name) throws SAXException, FileNotFoundException, IOException, ParserConfigurationException {
 		NodeList list = getUserList();
 		

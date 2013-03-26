@@ -7,6 +7,11 @@ import twitter4j.Twitter;
 import com.github.twitterswingsample.view.listener.authorized.AuthorizedAction;
 import com.github.twitterswingsample.view.panels.TimelinePanel;
 
+/**
+ * Abstract ActionListener that loads a timeline
+ * 
+ * @author multiprogger
+ */
 public abstract class TimelineLoader extends AuthorizedAction {
 
 	private TimelinePanel panel;

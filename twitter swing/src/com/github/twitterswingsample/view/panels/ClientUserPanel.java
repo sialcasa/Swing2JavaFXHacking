@@ -15,6 +15,11 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 import twitter4j.Twitter;
 import com.github.twitterswingsample.view.listener.authorized.timelineloader.HomeTimelineLoader;
 
+/**
+ * Panel containing all the content for one user
+ * 
+ * @author multiprogger
+ */
 public class ClientUserPanel extends JPanel{
     
 	public ClientUserPanel(Twitter twitter) {

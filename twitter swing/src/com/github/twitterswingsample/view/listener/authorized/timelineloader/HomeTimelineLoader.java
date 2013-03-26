@@ -6,6 +6,11 @@ import twitter4j.TwitterException;
 import com.github.twitterswingsample.view.panels.ConsolePanel;
 import com.github.twitterswingsample.view.panels.TimelinePanel;
 
+/**
+ * ActionListener that loads the home timeline
+ * 
+ * @author multiprogger
+ */
 public class HomeTimelineLoader extends TimelineLoader{
 	
 	public HomeTimelineLoader(TimelinePanel panel, Twitter twitter) {
