@@ -14,7 +14,10 @@ import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
+import com.github.twitterswingsample.control.TextHighlighter;
+import com.github.twitterswingsample.view.listener.StatusHyperlinkListener;
 import com.github.twitterswingsample.view.listener.TwitterUserPresentation;
 import com.github.twitterswingsample.view.listener.authorized.Retweeter;
 
@@ -56,15 +59,17 @@ public class StatusPanel extends JPanel{
 		gbc.gridwidth = 5;
 		gbc.gridx = 1;
 		add(new JLabel("@" + user.getScreenName()), gbc);
-
+		
+		/* Edit the text of the tweet and insert it into the StatusPanel */
 		gbc.gridy = 1;
 		JEditorPane tweetText = new JEditorPane();
 		tweetText.setContentType("text/html");
-		tweetText.setText("<font color='#000000'>" + status.getText()
-	                + "</font>");
-	        tweetText.setPreferredSize(new Dimension(420, 45));
-	        tweetText.setEditable(false);
-	        tweetText.setBackground(Color.LIGHT_GRAY);
+		tweetText.setText("<font color='#000000'>"
+				+ TextHighlighter.highlightAll(status.getText()) + "</font>");
+        tweetText.setPreferredSize(new Dimension(420, 45));
+        tweetText.setEditable(false);
+        tweetText.setBackground(Color.LIGHT_GRAY);
+        tweetText.addHyperlinkListener(new StatusHyperlinkListener());
 		add(tweetText, gbc);
 
 		gbc.gridy = 2;
