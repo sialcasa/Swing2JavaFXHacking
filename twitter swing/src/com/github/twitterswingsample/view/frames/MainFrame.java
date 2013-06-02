@@ -1,4 +1,4 @@
-package com.github.twitterswingsample.view;
+package com.github.twitterswingsample.view.frames;
 
 import java.awt.BorderLayout;
 import java.io.FileNotFoundException;

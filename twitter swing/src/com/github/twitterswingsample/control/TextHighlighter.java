@@ -3,23 +3,12 @@ package com.github.twitterswingsample.control;
 public class TextHighlighter {
 
 	public static String highlightAll(String text) {
-		return highlightLink(
-				highlightHashtag(
-						highlightTwitterUserMention(text)));
-	}
-
-	public static String highlightHashtag(String text) {
-		return highlightPartOfText(text, "#", "<font color='#0000ff'><strong>", "</strong></font>");
-	}
-
-	public static String highlightLink(String text) {
 		if(text != null && text.length() > 0){
 			String terms[] = text.split(" ");
-			for (int i = 0; i < terms.length; i++) {
-				if(terms[i].startsWith("http://")){
-					terms[i] = "<font color='#0000ff'><a href=\"" + terms[i] + "\" target=\"_blank\"><strong>" + terms[i] + "</strong></a></font>";
-				}
-			}
+
+			terms = highlightTerms(terms, "#", "<font color='#0000ff'><strong>", "</strong></font>", true);
+			terms = highlightTerms(terms, "@", "<font color='#0000ff'><strong>", "</strong></font>", true);
+			terms = highlightTerms(terms, "http://", "<font color='#0000ff'><a href=\"", "\" target=\"_blank\"><strong>link</strong></a></font>", false);
 			
 			String result = terms[0];
 			for (int i = 1; i < terms.length; i++) {
@@ -33,28 +22,31 @@ public class TextHighlighter {
 		}
 	}
 
-	public static String highlightTwitterUserMention(String text) {
-		return highlightPartOfText(text, "@", "<font color='#0000ff'><strong>", "</strong></font>");
-	}
+	private static String[] highlightTerms(String[] terms, String marker, String prefix, String suffix, boolean omitPunctuation) {
+		for (int i = 0; i < terms.length; i++) {
+			if(terms[i].startsWith(marker)){
+				if(omitPunctuation){
+					String term = "";
+					String punctuation = "";
+					for (int j = 1; j < terms[i].length(); j++) {
+						if(Character.isLetterOrDigit(terms[i].charAt(j)) || terms[i].charAt(j) == '_'){
+							continue;
+						}
+						else{
+							term = terms[i].substring(0, j);
+							punctuation = terms[i].substring(j);
+							break;
+						}
+					}
 
-	private static String highlightPartOfText(String text, String marker, String highlightingPrefix, String highlightingSuffix) {
-		if(text != null && text.length() > 0){
-			String terms[] = text.split(" ");
-			for (int i = 0; i < terms.length; i++) {
-				if(terms[i].startsWith(marker)){
-					terms[i] = highlightingPrefix + terms[i] + highlightingSuffix;
+					terms[i] = prefix + term + suffix + punctuation;
+				}
+				else{
+					terms[i] = prefix + terms[i] + suffix;
 				}
 			}
-			
-			String result = terms[0];
-			for (int i = 1; i < terms.length; i++) {
-				result += " " + terms[i];
-			}
+		}
 		
-			return result;
-		}
-		else {
-			return "";
-		}
+		return terms;
 	}
 }
