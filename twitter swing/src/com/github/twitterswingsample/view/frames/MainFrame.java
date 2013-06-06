@@ -1,6 +1,7 @@
 package com.github.twitterswingsample.view.frames;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -36,17 +37,19 @@ public class MainFrame extends JFrame{
 			setIconImage(ImageIO.read(getClass().getResource("images/icon.png")));
 		} catch (IOException e) {}
 		
+		Font menuFont = new Font("Arial", Font.BOLD, 13);
 		JMenuBar jmb = new JMenuBar();
 		JMenu file = new JMenu("File");
 		JMenuItem open = new JMenuItem("Open User Selection"),
 				exit = new JMenuItem("Close");
-		
+		open.setFont(menuFont);
 		open.addActionListener(new UserSelectionFrameCreator());
-		exit.addActionListener(new ProgramCloser());
-		
 		file.add(open);
 		file.addSeparator();
+		exit.setFont(menuFont);
+		exit.addActionListener(new ProgramCloser());
 		file.add(exit);
+		file.setFont(menuFont);
 		jmb.add(file);
 		setJMenuBar(jmb);
 		

@@ -1,20 +1,17 @@
-package com.github.twitterswingsample.control;
+package com.github.twitterswingsample.view;
 
 public class TextHighlighter {
 
 	public static String highlightAll(String text) {
 		if(text != null && text.length() > 0){
 			String terms[] = text.split(" ");
-
-			terms = highlightTerms(terms, "#", "<font color='#0000ff'><strong>", "</strong></font>", true);
-			terms = highlightTerms(terms, "@", "<font color='#0000ff'><strong>", "</strong></font>", true);
-			terms = highlightTerms(terms, "http://", "<font color='#0000ff'><a href=\"", "\" target=\"_blank\"><strong>link</strong></a></font>", false);
-			
+			terms = highlightTerms(terms, "#", "<font style='font-style:italic; color:#0000ff'><strong>", "</strong></font>", true);
+			terms = highlightTerms(terms, "@", "<font style='font-style:italic; color:#0000ff'><strong>", "</strong></font>", true);
+			terms = highlightTerms(terms, "http://", "<font style='color:#0000ff'><a href=\"", "\" target=\"_blank\"><strong>link</strong></a></font>", false);
 			String result = terms[0];
 			for (int i = 1; i < terms.length; i++) {
 				result += " " + terms[i];
 			}
-		
 			return result;
 		}
 		else {
@@ -38,7 +35,6 @@ public class TextHighlighter {
 							break;
 						}
 					}
-
 					terms[i] = prefix + term + suffix + punctuation;
 				}
 				else{
@@ -46,7 +42,6 @@ public class TextHighlighter {
 				}
 			}
 		}
-		
 		return terms;
 	}
 }

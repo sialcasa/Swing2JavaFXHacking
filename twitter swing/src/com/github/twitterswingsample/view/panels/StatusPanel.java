@@ -3,6 +3,7 @@ package com.github.twitterswingsample.view.panels;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -16,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.github.twitterswingsample.control.TextHighlighter;
+import com.github.twitterswingsample.view.TextHighlighter;
 import com.github.twitterswingsample.view.listener.StatusHyperlinkListener;
 import com.github.twitterswingsample.view.listener.TwitterUserPresentation;
 import com.github.twitterswingsample.view.listener.authorized.Retweeter;
@@ -33,16 +34,15 @@ import twitter4j.User;
 public class StatusPanel extends JPanel{
 
 	public StatusPanel(Twitter twitter, Status status) {
+		Font font = new Font("Arial", Font.BOLD, 13);
 		setLayout(new GridBagLayout());
-		
-		this.setBackground(Color.LIGHT_GRAY);
-		
-		User user = status.getUser();
+		setBackground(Color.LIGHT_GRAY);
 		
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(3, 3, 3, 3);
 		gbc.anchor = GridBagConstraints.WEST;
-		
+
+		User user = status.getUser();
 		try {
 			gbc.gridheight = 5;
 			JLabel label = new JLabel(new ImageIcon(new URL(user.getBiggerProfileImageURL())));
@@ -50,21 +50,21 @@ public class StatusPanel extends JPanel{
 			label.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			add(label, gbc);
 		} catch (MalformedURLException e) {
-			ConsolePanel.getSingleton().printMessage(new String[]{
-					"Could not load profile image of " + user.getScreenName()
-			});
+			ConsolePanel.getSingleton().printMessage(new String[]{"Could not load profile image of " + user.getScreenName()});
 		}	
 		
 		gbc.gridheight = 1;
 		gbc.gridwidth = 5;
 		gbc.gridx = 1;
-		add(new JLabel("@" + user.getScreenName()), gbc);
+		JLabel screenName = new JLabel("@" + user.getScreenName());
+		screenName.setFont(font);
+		add(screenName, gbc);
 		
 		/* Edit the text of the tweet and insert it into the StatusPanel */
 		gbc.gridy = 1;
 		JEditorPane tweetText = new JEditorPane();
 		tweetText.setContentType("text/html");
-		tweetText.setText("<font color='#000000'>"
+		tweetText.setText("<font style='font-family: Arial; color: #000000'>"
 				+ TextHighlighter.highlightAll(status.getText()) + "</font>");
         tweetText.setPreferredSize(new Dimension(420, 45));
         tweetText.setEditable(false);
@@ -73,7 +73,9 @@ public class StatusPanel extends JPanel{
 		add(tweetText, gbc);
 
 		gbc.gridy = 2;
-		add(new JLabel(status.getCreatedAt() + ""), gbc);
+		JLabel created = new JLabel(status.getCreatedAt() + "");
+		created.setFont(font);
+		add(created, gbc);
 
 		gbc.gridy = 4;
 		JButton retweetBtn = new JButton("retweet");
@@ -87,7 +89,9 @@ public class StatusPanel extends JPanel{
 		gbc.gridwidth = 1;
 		gbc.gridy = 3;
 		if(status.getRetweetCount() > 0){
-			add(new JLabel("Retweeted " + status.getRetweetCount() + " times"), gbc);
+			JLabel retweeted = new JLabel("Retweeted " + status.getRetweetCount() + " times");
+			retweeted.setFont(font);
+			add(retweeted, gbc);
 		}
 	}
 }
