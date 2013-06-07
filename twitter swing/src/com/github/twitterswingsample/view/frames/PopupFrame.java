@@ -1,6 +1,5 @@
 package com.github.twitterswingsample.view.frames;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.MouseInfo;
@@ -28,6 +27,7 @@ public class PopupFrame extends JFrame {
 	}
 	
 	public PopupFrame(String text) {
+		this();
 		setText(text);
 	}
 	

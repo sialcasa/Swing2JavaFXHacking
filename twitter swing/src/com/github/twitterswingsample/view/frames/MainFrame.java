@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JSplitPane;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
@@ -53,8 +54,9 @@ public class MainFrame extends JFrame{
 		jmb.add(file);
 		setJMenuBar(jmb);
 		
+		JSplitPane pane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		try {
-			add(new ClientUserPanel(new Credentials(0).getTwitter()), BorderLayout.CENTER);
+			pane.setTopComponent(new ClientUserPanel(new Credentials(0).getTwitter()));
 		} catch (FileNotFoundException e) {
 			ConsolePanel.getSingleton().printMessage(new String[]{
 				"File 'login.xml' not found",
@@ -62,7 +64,8 @@ public class MainFrame extends JFrame{
 			});
 		} catch (IOException e) {
 			ConsolePanel.getSingleton().printMessage(new String[]{
-				"Unknown error"
+				"Unknown error",
+				"Please report this bug!"
 			});
 		} catch (SAXException e) {
 			ConsolePanel.getSingleton().printMessage(new String[]{
@@ -72,17 +75,22 @@ public class MainFrame extends JFrame{
 		} catch (ParserConfigurationException e) {
 			ConsolePanel.getSingleton().printMessage(new String[]{
 				"Internal Error",
-				"Please report this vagina"
+				"Please report this bug!"
 			});
 		} catch (Exception e) {
 			ConsolePanel.getSingleton().printMessage(new String[]{
-				"File 'login.xml' not filled",
-				"You have to insert the credentials for your application!",
-				"See the project homepage for further information"
+				"Unspecified Error",
+				"Perhaps 'login.xml' not filled",
+				"Otherwise, please report this bug!",
+				e.toString()
 			});
 		}
 
-		add(ConsolePanel.getSingleton(), BorderLayout.SOUTH);
+		pane.setBottomComponent(ConsolePanel.getSingleton());
+		pane.setDividerLocation(1.);
+		pane.setResizeWeight(1.);
+		pane.setOneTouchExpandable(true);
+		add(pane, BorderLayout.CENTER);
 	}
 	
 	public static void main(String[] args) throws Exception {

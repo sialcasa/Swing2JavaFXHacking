@@ -15,7 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 
 import com.github.twitterswingsample.view.TextHighlighter;
 import com.github.twitterswingsample.view.listener.StatusHyperlinkListener;
@@ -33,7 +33,7 @@ import twitter4j.User;
  */
 public class StatusPanel extends JPanel{
 
-	public StatusPanel(Twitter twitter, Status status) {
+	public StatusPanel(Twitter twitter, Status status, JTabbedPane pane) {
 		Font font = new Font("Arial", Font.BOLD, 13);
 		setLayout(new GridBagLayout());
 		setBackground(Color.LIGHT_GRAY);
@@ -46,8 +46,9 @@ public class StatusPanel extends JPanel{
 		try {
 			gbc.gridheight = 5;
 			JLabel label = new JLabel(new ImageIcon(new URL(user.getBiggerProfileImageURL())));
-			label.addMouseListener(new TwitterUserPresentation(twitter, user));
+			label.addMouseListener(new TwitterUserPresentation(twitter, user, pane));
 			label.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			label.setToolTipText("Show some information about the user");
 			add(label, gbc);
 		} catch (MalformedURLException e) {
 			ConsolePanel.getSingleton().printMessage(new String[]{"Could not load profile image of " + user.getScreenName()});

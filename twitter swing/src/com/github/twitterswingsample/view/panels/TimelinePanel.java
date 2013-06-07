@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.List;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -17,14 +18,16 @@ import twitter4j.Twitter;
 public class TimelinePanel extends JPanel{
 	
 	private Twitter twitter;
+	private JTabbedPane pane;
 
-	public TimelinePanel(Twitter twitter) {
+	public TimelinePanel(Twitter twitter, JTabbedPane pane) {
 		this.twitter = twitter;
+		this.pane = pane;
 		setLayout(new GridBagLayout());
 	}
 
-	public TimelinePanel(Twitter twitter, List<Status> statuses) {
-		this(twitter);
+	public TimelinePanel(Twitter twitter, List<Status> statuses, JTabbedPane pane) {
+		this(twitter, pane);
 		fillPanel(statuses);
 	}
 	
@@ -41,7 +44,7 @@ public class TimelinePanel extends JPanel{
 		gbc.insets = new Insets(5, 5, 5, 5);
 		for (int i = 0; i < statuses.size(); i++) {
 			gbc.gridy = i;
-			add(new StatusPanel(twitter, statuses.get(i)), gbc);
+			add(new StatusPanel(twitter, statuses.get(i), pane), gbc);
 		}
 	}
 }

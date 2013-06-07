@@ -2,17 +2,21 @@ package com.github.twitterswingsample.view.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.plaf.basic.BasicScrollBarUI;
+import javax.swing.JTabbedPane;
 
 import twitter4j.Twitter;
+import twitter4j.TwitterException;
+
+import com.github.twitterswingsample.view.listener.PopupMenuOpener;
 import com.github.twitterswingsample.view.listener.authorized.timelineloader.HomeTimelineLoader;
 
 /**
@@ -21,60 +25,41 @@ import com.github.twitterswingsample.view.listener.authorized.timelineloader.Hom
  * @author multiprogger
  */
 public class ClientUserPanel extends JPanel{
+	
+	private JTabbedPane pane;
     
 	public ClientUserPanel(Twitter twitter) {
 		setLayout(new BorderLayout(5, 5));
+		pane = new JTabbedPane();
+		pane.addMouseListener(new PopupMenuOpener(pane));
 		
-		TimelinePanel homeTimeline = new TimelinePanel(twitter);
+		JPanel timelineTab = new JPanel(new BorderLayout(5, 5));
+		TimelinePanel homeTimeline = new TimelinePanel(twitter, pane);
 		HomeTimelineLoader homeTimelineLoader = new HomeTimelineLoader(homeTimeline, twitter);
 		homeTimelineLoader.actionPerformed(null);
 		JScrollPane homeTimelineScrollPane = new JScrollPane(homeTimeline);
 		homeTimelineScrollPane.getVerticalScrollBar().setUI(new MyScrollBarUI());
 		homeTimelineScrollPane.getHorizontalScrollBar().setUI(new MyScrollBarUI());
-		add(homeTimelineScrollPane, BorderLayout.CENTER);
-		
+		timelineTab.add(homeTimelineScrollPane, BorderLayout.CENTER);
 		JButton reloadHomeTimeline = new JButton("reload Hometimeline");
 		reloadHomeTimeline.setBackground(new Color(0,172,237));
 		reloadHomeTimeline.addActionListener(homeTimelineLoader);
-		add(reloadHomeTimeline, BorderLayout.SOUTH);
+		timelineTab.add(reloadHomeTimeline, BorderLayout.SOUTH);
+		
+		try {
+			String tip = "";
+			try {
+				tip = "Home Timeline of @" + twitter.getScreenName();
+			} catch (IllegalStateException | TwitterException e) {
+				tip = "Your Home Timeline";
+			}
+			
+			BufferedImage image = ImageIO.read(getClass().getResource("images/home.png"));
+			ImageIcon icon = new ImageIcon(image.getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+			pane.addTab("Home Timeline", icon, timelineTab, tip);
+		} catch (IOException e) {
+			pane.addTab("Home Timeline", timelineTab);
+		}
+		add(pane, BorderLayout.CENTER);
 	}
-	
-	public class MyScrollBarUI extends BasicScrollBarUI {
-
-	        private JButton b = new JButton() {
-
-	            @Override
-	            public Dimension getPreferredSize() {
-	                return new Dimension(0, 0);
-	            }
-
-	        };
-
-	        @Override
-	        protected void paintTrack(Graphics g, JComponent c,
-	                Rectangle trackBounds) {
-	            g.setColor(Color.GRAY);
-	            g.fillRect(trackBounds.x, trackBounds.y, trackBounds.width,
-	                    trackBounds.height);
-	        }
-
-	        @Override
-	        protected void paintThumb(Graphics g, JComponent c,
-	                Rectangle thumbBounds) {
-	            g.setColor(Color.LIGHT_GRAY);
-	            g.fillRect(thumbBounds.x + 2, thumbBounds.y + 2, thumbBounds.width - 3,
-	                    thumbBounds.height - 3);
-	        }
-
-	        @Override
-	        protected JButton createDecreaseButton(int orientation) {
-	            return b;
-	        }
-
-	        @Override
-	        protected JButton createIncreaseButton(int orientation) {
-	            return b;
-	        }
-	    }
-
 }

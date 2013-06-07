@@ -36,10 +36,8 @@ public class TwitterUserPanel extends JPanel{
 	public TwitterUserPanel(Twitter twitter, User user) throws IllegalStateException, TwitterException {
 		this.twitter = twitter;
 		this.user = user;
-		
 		follower = new Follower(twitter, user, this);
 		unFollower = new UnFollower(twitter, user, this);
-		
 		setLayout(new GridBagLayout());
 		
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -61,10 +59,6 @@ public class TwitterUserPanel extends JPanel{
 		gbc.gridx = 1;
 		gbc.gridy = 0;
 		add(new JLabel(user.getName() + " - @" + user.getScreenName()), gbc);
-
-		/*gbc.gridwidth = 1;
-		gbc.gridx = 2;
-		add(new JLabel(), gbc);*/
 
 		gbc.gridwidth = 10;
 		gbc.gridx = 1;

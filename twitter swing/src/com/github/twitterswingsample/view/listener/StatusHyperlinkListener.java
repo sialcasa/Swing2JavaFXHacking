@@ -1,8 +1,6 @@
 package com.github.twitterswingsample.view.listener;
 
 import java.awt.Desktop;
-import java.awt.MouseInfo;
-import java.awt.Point;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
