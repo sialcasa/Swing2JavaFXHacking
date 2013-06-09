@@ -17,7 +17,7 @@ public class ConsolePanel extends JPanel{
 	private static ConsolePanel SINGLETON;
 	private TextArea area;
 	
-	public static ConsolePanel getSingleton(){
+	public static ConsolePanel getInstance(){
 		if(SINGLETON == null){
 			SINGLETON = new ConsolePanel();
 		}

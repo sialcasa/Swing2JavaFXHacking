@@ -23,12 +23,12 @@ public class HomeTimelineLoader extends TimelineLoader{
 			setTimelineContent(getTwitter().getHomeTimeline());
 			long needed = (System.nanoTime() - start) / 1000000;
 			
-			ConsolePanel.getSingleton().printMessage(new String[]{
+			ConsolePanel.getInstance().printMessage(new String[]{
 				"Home timeline of " + getTwitter().getScreenName() + " successfully loaded",
 				needed + " milliseconds needed"
 			});
 		} catch (TwitterException e) {
-			ConsolePanel.getSingleton().printMessage(new String[]{"Could not load home timeline"});
+			ConsolePanel.getInstance().printMessage(new String[]{"Could not load home timeline"});
 		}
 	}
 }

@@ -20,6 +20,7 @@ import com.github.twitterswingsample.view.listener.ProgramCloser;
 import com.github.twitterswingsample.view.listener.UserSelectionFrameCreator;
 import com.github.twitterswingsample.view.panels.ConsolePanel;
 import com.github.twitterswingsample.view.panels.ClientUserPanel;
+import com.github.twitterswingsample.view.panels.ShortInfoPanel;
 
 /**
  * The main window of the client
@@ -32,7 +33,7 @@ public class MainFrame extends JFrame{
 		setBounds(50, 0, 600, 700);
 		setTitle("Twitter4J Swing Sample");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setLayout(new BorderLayout(5, 5));
+		setLayout(new BorderLayout(2, 2));
 		
 		try {
 			setIconImage(ImageIO.read(getClass().getResource("images/icon.png")));
@@ -58,27 +59,27 @@ public class MainFrame extends JFrame{
 		try {
 			pane.setTopComponent(new ClientUserPanel(new Credentials(0).getTwitter()));
 		} catch (FileNotFoundException e) {
-			ConsolePanel.getSingleton().printMessage(new String[]{
+			ConsolePanel.getInstance().printMessage(new String[]{
 				"File 'login.xml' not found",
 				"See the project homepage for further information"
 			});
 		} catch (IOException e) {
-			ConsolePanel.getSingleton().printMessage(new String[]{
+			ConsolePanel.getInstance().printMessage(new String[]{
 				"Unknown error",
 				"Please report this bug!"
 			});
 		} catch (SAXException e) {
-			ConsolePanel.getSingleton().printMessage(new String[]{
+			ConsolePanel.getInstance().printMessage(new String[]{
 				"damaged xml structure in file 'login.xml'",
 				"Repair it!"
 			});
 		} catch (ParserConfigurationException e) {
-			ConsolePanel.getSingleton().printMessage(new String[]{
+			ConsolePanel.getInstance().printMessage(new String[]{
 				"Internal Error",
 				"Please report this bug!"
 			});
 		} catch (Exception e) {
-			ConsolePanel.getSingleton().printMessage(new String[]{
+			ConsolePanel.getInstance().printMessage(new String[]{
 				"Unspecified Error",
 				"Perhaps 'login.xml' not filled",
 				"Otherwise, please report this bug!",
@@ -86,11 +87,13 @@ public class MainFrame extends JFrame{
 			});
 		}
 
-		pane.setBottomComponent(ConsolePanel.getSingleton());
+		pane.setBottomComponent(ConsolePanel.getInstance());
 		pane.setDividerLocation(1.);
 		pane.setResizeWeight(1.);
 		pane.setOneTouchExpandable(true);
 		add(pane, BorderLayout.CENTER);
+		
+		add(ShortInfoPanel.getInstance(), BorderLayout.SOUTH);
 	}
 	
 	public static void main(String[] args) throws Exception {

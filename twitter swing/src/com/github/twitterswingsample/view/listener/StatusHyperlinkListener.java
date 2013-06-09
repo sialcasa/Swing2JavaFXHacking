@@ -8,22 +8,13 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
 import com.github.twitterswingsample.view.frames.ErrorMessageFrame;
-import com.github.twitterswingsample.view.frames.PopupFrame;
+import com.github.twitterswingsample.view.panels.ShortInfoPanel;
 
 public class StatusHyperlinkListener implements HyperlinkListener {
-	
-	private PopupFrame pf;
-	
-	public StatusHyperlinkListener() {
-		pf = new PopupFrame();
-	}
 
 	public void hyperlinkUpdate(HyperlinkEvent e) {
 		if (e.getEventType() == HyperlinkEvent.EventType.ENTERED){
-			if(!pf.isTextSet()){
-				pf.setText(e.getURL().toExternalForm());
-			}
-			pf.arrange();
+			ShortInfoPanel.getInstance().setInfo(e.getURL().toExternalForm());
 		}
 		else if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
 			if(Desktop.isDesktopSupported()) {
@@ -38,7 +29,7 @@ public class StatusHyperlinkListener implements HyperlinkListener {
 			}
 		}
 		else if(e.getEventType() == HyperlinkEvent.EventType.EXITED){
-			pf.setVisible(false);
+			ShortInfoPanel.getInstance().clearInfo();
 		}
 	}
 }

@@ -28,7 +28,7 @@ public class Follower extends AuthorizedAction{
 			getTwitter().createFriendship(user.getId());
 			panel.followStatusChanged();
 		} catch (TwitterException e) {
-			ConsolePanel.getSingleton().printMessage(new String[]{
+			ConsolePanel.getInstance().printMessage(new String[]{
 					"unable to follow @" + user.getScreenName()
 			});
 		}

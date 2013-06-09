@@ -47,14 +47,14 @@ public class TwitterUserPresentation implements MouseListener, Runnable {
 				scrollPane.getHorizontalScrollBar().setUI(new MyScrollBarUI());
 				pane.addTab("@" + user.getScreenName(), icon, scrollPane, "Some info about @" + user.getName());
 			} catch (IOException e) {
-				ConsolePanel.getSingleton().printMessage(new String[]{
+				ConsolePanel.getInstance().printMessage(new String[]{
 					"Could not set an icon for the tab",
 					e.getMessage()
 				});
 			}
 			
 		} catch (TwitterException e) {
-			ConsolePanel.getSingleton().printMessage(new String[]{
+			ConsolePanel.getInstance().printMessage(new String[]{
 				"Could not create user information",
 				e.getMessage()
 			});

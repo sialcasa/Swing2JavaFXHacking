@@ -16,7 +16,7 @@ import javax.swing.JTabbedPane;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
-import com.github.twitterswingsample.view.listener.PopupMenuOpener;
+import com.github.twitterswingsample.view.listener.TabPopupMenuOpener;
 import com.github.twitterswingsample.view.listener.authorized.timelineloader.HomeTimelineLoader;
 
 /**
@@ -26,12 +26,10 @@ import com.github.twitterswingsample.view.listener.authorized.timelineloader.Hom
  */
 public class ClientUserPanel extends JPanel{
 	
-	private JTabbedPane pane;
-    
 	public ClientUserPanel(Twitter twitter) {
 		setLayout(new BorderLayout(5, 5));
-		pane = new JTabbedPane();
-		pane.addMouseListener(new PopupMenuOpener(pane));
+		JTabbedPane pane = new JTabbedPane();
+		pane.addMouseListener(new TabPopupMenuOpener(pane));
 		
 		JPanel timelineTab = new JPanel(new BorderLayout(5, 5));
 		TimelinePanel homeTimeline = new TimelinePanel(twitter, pane);
@@ -42,7 +40,7 @@ public class ClientUserPanel extends JPanel{
 		homeTimelineScrollPane.getHorizontalScrollBar().setUI(new MyScrollBarUI());
 		timelineTab.add(homeTimelineScrollPane, BorderLayout.CENTER);
 		JButton reloadHomeTimeline = new JButton("reload Hometimeline");
-		reloadHomeTimeline.setBackground(new Color(0,172,237));
+		reloadHomeTimeline.setBackground(new Color(120,172,237));
 		reloadHomeTimeline.addActionListener(homeTimelineLoader);
 		timelineTab.add(reloadHomeTimeline, BorderLayout.SOUTH);
 		

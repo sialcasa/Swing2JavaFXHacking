@@ -50,7 +50,7 @@ public class TwitterUserPanel extends JPanel{
 			add(new JLabel(new ImageIcon(new URL(user.getOriginalProfileImageURL()))), gbc);
 			gbc.gridheight = 1;
 		} catch (MalformedURLException e) {
-			ConsolePanel.getSingleton().printMessage(new String[]{
+			ConsolePanel.getInstance().printMessage(new String[]{
 					"Could not load profile image of " + user.getScreenName()
 			});
 		}

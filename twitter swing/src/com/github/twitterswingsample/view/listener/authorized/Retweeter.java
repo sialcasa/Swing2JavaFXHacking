@@ -37,13 +37,13 @@ public class Retweeter extends AuthorizedAction{
 			getTwitter().retweetStatus(status.getId());
 			long needed = (System.nanoTime() - start) / 1000000;
 			
-			ConsolePanel.getSingleton().printMessage(new String[]{
+			ConsolePanel.getInstance().printMessage(new String[]{
 				"Tweet of " + status.getUser().getName() + " successfully retweeted",
 				needed + " milliseconds needed"
 			});
 			btn.setEnabled(false);
 		} catch (TwitterException e) {
-			ConsolePanel.getSingleton().printMessage(new String[]{
+			ConsolePanel.getInstance().printMessage(new String[]{
 					"Unable to retweet status from " + status.getUser().getScreenName() + ":",
 					"\"" + status.getText() + "\""
 			});

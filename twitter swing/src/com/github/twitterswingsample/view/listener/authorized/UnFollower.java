@@ -28,7 +28,7 @@ public class UnFollower extends AuthorizedAction{
 			getTwitter().destroyFriendship(user.getId());
 			panel.followStatusChanged();
 		} catch (TwitterException e) {
-			ConsolePanel.getSingleton().printMessage(new String[]{
+			ConsolePanel.getInstance().printMessage(new String[]{
 					"unable to unfollow @" + user.getScreenName()
 			});
 		}

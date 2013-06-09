@@ -7,11 +7,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTabbedPane;
 
-public class PopupMenuOpener implements MouseListener {
+public class TabPopupMenuOpener implements MouseListener {
 	
 	private JPopupMenu popup;
 	
-	public PopupMenuOpener(JTabbedPane pane) {
+	public TabPopupMenuOpener(JTabbedPane pane) {
 		popup = new JPopupMenu("Options");
 		JMenuItem item = popup.add("Close selected tab");
 		item.addActionListener(new TabCloser(pane));
