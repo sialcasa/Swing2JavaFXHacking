@@ -16,8 +16,10 @@ import javax.swing.JTabbedPane;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
+import com.github.twitterswingsample.view.listener.ShortInfoTexter;
 import com.github.twitterswingsample.view.listener.TabPopupMenuOpener;
 import com.github.twitterswingsample.view.listener.authorized.timelineloader.HomeTimelineLoader;
+import com.github.twitterswingsample.view.listener.statusbased.UserInfoPanelCreator;
 
 /**
  * Panel containing all the content for one user
@@ -31,17 +33,21 @@ public class ClientUserPanel extends JPanel{
 		JTabbedPane pane = new JTabbedPane();
 		pane.addMouseListener(new TabPopupMenuOpener(pane));
 		
+		
 		JPanel timelineTab = new JPanel(new BorderLayout(5, 5));
-		TimelinePanel homeTimeline = new TimelinePanel(twitter, pane);
-		HomeTimelineLoader homeTimelineLoader = new HomeTimelineLoader(homeTimeline, twitter);
-		homeTimelineLoader.actionPerformed(null);
+		
+		TimelinePanel homeTimeline = new TimelinePanel();
+		homeTimeline.addStatusMouseListenerToStatusProfileImages(new UserInfoPanelCreator(twitter, pane, true));
+		homeTimeline.addMouseListenerToStatusProfileImages(new ShortInfoTexter("Show some information about the user"));
+		
 		JScrollPane homeTimelineScrollPane = new JScrollPane(homeTimeline);
 		homeTimelineScrollPane.getVerticalScrollBar().setUI(new MyScrollBarUI());
 		homeTimelineScrollPane.getHorizontalScrollBar().setUI(new MyScrollBarUI());
 		timelineTab.add(homeTimelineScrollPane, BorderLayout.CENTER);
-		JButton reloadHomeTimeline = new JButton("reload Hometimeline");
+		
+		JButton reloadHomeTimeline = new JButton("load Home Timeline");
 		reloadHomeTimeline.setBackground(new Color(120,172,237));
-		reloadHomeTimeline.addActionListener(homeTimelineLoader);
+		reloadHomeTimeline.addActionListener(new HomeTimelineLoader(homeTimeline, twitter));
 		timelineTab.add(reloadHomeTimeline, BorderLayout.SOUTH);
 		
 		try {

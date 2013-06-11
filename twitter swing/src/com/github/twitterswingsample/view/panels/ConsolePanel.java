@@ -17,7 +17,7 @@ public class ConsolePanel extends JPanel{
 	private static ConsolePanel SINGLETON;
 	private TextArea area;
 	
-	public static ConsolePanel getInstance(){
+	public static synchronized ConsolePanel getInstance(){
 		if(SINGLETON == null){
 			SINGLETON = new ConsolePanel();
 		}
@@ -43,7 +43,7 @@ public class ConsolePanel extends JPanel{
 	 * 
 	 * @param message text to be displayed in the console. every field of the array gets a new line.
 	 */
-	public void printMessage(String[] message){
+	public synchronized void printMessage(String[] message){
 		String tmp = "\n\n" + new Date() + ":";
 		for (int i = 0; i < message.length; i++) {
 			tmp += "\n" + message[i];

@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -18,14 +19,11 @@ import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 
 import com.github.twitterswingsample.view.TextHighlighter;
-import com.github.twitterswingsample.view.listener.ShortInfoTexter;
 import com.github.twitterswingsample.view.listener.StatusHyperlinkListener;
-import com.github.twitterswingsample.view.listener.TwitterUserPresentation;
 import com.github.twitterswingsample.view.listener.authorized.Retweeter;
+import com.github.twitterswingsample.view.listener.statusbased.StatusMouseListener;
 
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -38,7 +36,11 @@ import twitter4j.User;
  */
 public class StatusPanel extends JPanel{
 
-	public StatusPanel(Twitter twitter, Status status, JTabbedPane pane) {
+	private JLabel profileImage;
+	private Status status;
+	
+	public StatusPanel(Twitter twitter, Status status) {
+		this.status = status;
 		int fontSize = 13;
 		Font font = new Font("Arial", Font.BOLD, fontSize);
 		setLayout(new GridBagLayout());
@@ -51,11 +53,9 @@ public class StatusPanel extends JPanel{
 		User user = status.getUser();
 		try {
 			gbc.gridheight = 5;
-			JLabel label = new JLabel(new ImageIcon(new URL(user.getBiggerProfileImageURL())));
-			label.addMouseListener(new TwitterUserPresentation(twitter, user, pane));
-			label.addMouseListener(new ShortInfoTexter("Show some information about " + user.getName()));
-			label.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			add(label, gbc);
+			profileImage = new JLabel(new ImageIcon(new URL(user.getBiggerProfileImageURL())));
+			profileImage.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			add(profileImage, gbc);
 		} catch (MalformedURLException e) {
 			ConsolePanel.getInstance().printMessage(new String[]{"Could not load profile image of " + user.getScreenName()});
 		}	
@@ -116,5 +116,19 @@ public class StatusPanel extends JPanel{
 			}
 			add(retweeted, gbc);
 		}
+	}
+	
+	public Status getStatus(){
+		return status;
+	}
+	
+	public synchronized void addMouseListenerToProfileImage(MouseListener l) {
+		profileImage.addMouseListener(l);
+	}
+	
+	public synchronized void addStatusMouseListenerToProfileImage(StatusMouseListener l) throws CloneNotSupportedException {
+		l = (StatusMouseListener) l.clone();
+		l.setStatus(status);
+		addMouseListenerToProfileImage(l);
 	}
 }
