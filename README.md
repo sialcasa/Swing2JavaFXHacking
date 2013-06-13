@@ -5,13 +5,13 @@ A desktop client for Twitter.
 ## Intention ##
 
 The goal is to write a desktop client that includes all functionalities the **Twitter API v1.1** offers.  
-Furthermore it should look as pretty as it's possible using Java Swing.
+Furthermore it should look as pretty as it's possible using **Java Swing**.
 
 ## Login ##
 
 ### Where to enter my Password? ###
-Insert your credentials (consumer key, consumer secret, access token, access token secret) into the 'login.xml' file.  
-You can insert credentials of multiple accounts and then choose them at runtime and switch between them **[not yet implemented]**.
+Insert your credentials (consumer key, consumer secret, access token, access token secret) into the 'login.xml' file you have to drop right beside your project.  
+You can insert credentials of multiple accounts and then choose them at runtime and switch between them.
 
 ### Where to look for them? ###
 You generate them on the [Developers site of Twitter] (https://dev.twitter.com "The information site of Twitter for developers").  
@@ -24,6 +24,4 @@ You generate them on the [Developers site of Twitter] (https://dev.twitter.com "
 
 ## Technical Details ##
 
-**Programming Language:** Java  
-**GUI library used:** Swing  
-**Framework used:** Twitter4J 3.0.3
+**Framework used:** Twitter4J v3.0.3
