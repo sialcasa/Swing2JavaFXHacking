@@ -1,15 +1,19 @@
 package com.github.twitterswingsample.view.frames;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Font;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ButtonGroup;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -17,7 +21,7 @@ import org.xml.sax.SAXException;
 
 import com.github.twitterswingsample.model.Credentials;
 import com.github.twitterswingsample.view.listener.ProgramCloser;
-import com.github.twitterswingsample.view.listener.UserSelectionFrameCreator;
+import com.github.twitterswingsample.view.listener.SwitchUserListener;
 import com.github.twitterswingsample.view.panels.ConsolePanel;
 import com.github.twitterswingsample.view.panels.ClientUserPanel;
 import com.github.twitterswingsample.view.panels.ShortInfoPanel;
@@ -35,18 +39,13 @@ public class MainFrame extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new BorderLayout(2, 2));
 		
-		try {
-			setIconImage(ImageIO.read(getClass().getResource("images/icon.png")));
-		} catch (IOException e) {}
-		
 		Font menuFont = new Font("Arial", Font.BOLD, 13);
 		JMenuBar jmb = new JMenuBar();
-		JMenu file = new JMenu("File");
-		JMenuItem open = new JMenuItem("Open User Selection"),
-				exit = new JMenuItem("Close");
-		open.setFont(menuFont);
-		open.addActionListener(new UserSelectionFrameCreator());
-		file.add(open);
+		JMenu file = new JMenu("File"),
+		switchUser = new JMenu("Switch user");
+		JMenuItem exit = new JMenuItem("Close");
+		switchUser.setFont(menuFont);
+		file.add(switchUser);
 		file.addSeparator();
 		exit.setFont(menuFont);
 		exit.addActionListener(new ProgramCloser());
@@ -55,9 +54,31 @@ public class MainFrame extends JFrame{
 		jmb.add(file);
 		setJMenuBar(jmb);
 		
-		JSplitPane pane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		try {
-			pane.setTopComponent(new ClientUserPanel(new Credentials(0).getTwitter()));
+			setIconImage(ImageIO.read(getClass().getResource("images/icon.png")));
+		} catch (IOException e) {}
+
+		JSplitPane pane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+		pane.setBottomComponent(ConsolePanel.getInstance());
+		pane.setDividerLocation(1.);
+		pane.setResizeWeight(1.);
+		pane.setOneTouchExpandable(true);
+		add(pane, BorderLayout.CENTER);
+		try {
+			Credentials creds = new Credentials();
+			CardLayout layout = new CardLayout();
+			JPanel cardPanel = new JPanel(layout);
+			ButtonGroup group = new ButtonGroup();
+			for (int i = 0; i < creds.getNumberOfUsers(); i++) {
+				JCheckBoxMenuItem item = new JCheckBoxMenuItem(creds.getName(i));
+				item.setFont(menuFont);
+				item.addActionListener(new SwitchUserListener(layout, cardPanel, creds.getName(i)));
+				group.add(item);
+				switchUser.add(item);
+				cardPanel.add(creds.getName(i), new ClientUserPanel(creds.getTwitter(i)));
+			}
+			group.getElements().nextElement().setSelected(true);
+			pane.setTopComponent(cardPanel);
 		} catch (FileNotFoundException e) {
 			ConsolePanel.getInstance().printMessage(new String[]{
 				"File 'login.xml' not found",
@@ -86,12 +107,6 @@ public class MainFrame extends JFrame{
 				e.toString()
 			});
 		}
-
-		pane.setBottomComponent(ConsolePanel.getInstance());
-		pane.setDividerLocation(1.);
-		pane.setResizeWeight(1.);
-		pane.setOneTouchExpandable(true);
-		add(pane, BorderLayout.CENTER);
 		
 		add(ShortInfoPanel.getInstance(), BorderLayout.SOUTH);
 	}

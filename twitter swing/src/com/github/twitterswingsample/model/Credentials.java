@@ -27,62 +27,9 @@ import twitter4j.auth.AccessToken;
  */
 public class Credentials {
 	
-	private String consumerkey, consumersecret, accesstoken, accesstokensecret;
-
-	/**
-	 * Defines, of which account listed in 'login.xml' the access data have to be used
-	 * 
-	 * @param i index of account in 'login.xml'
-	 * @throws FileNotFoundException
-	 * @throws SAXException
-	 * @throws ParserConfigurationException
-	 * @throws IOException
-	 */
-	public Credentials(int i) throws FileNotFoundException, SAXException, ParserConfigurationException, IOException {
-		readValues((Element) getUserList().item(i));
-	}
-
-	/**
-	 * Defines, of which account listed in 'login.xml' the access data have to be used
-	 * 
-	 * @param name value inserted as attribute of the xml tag "user" in 'login.xml'
-	 * @throws FileNotFoundException
-	 * @throws SAXException
-	 * @throws ParserConfigurationException
-	 * @throws IOException
-	 */
-	public Credentials(String name) throws SAXException, FileNotFoundException, IOException, ParserConfigurationException {
-		NodeList list = getUserList();
-		
-		for (int i = 0; i < list.getLength(); i++) {
-			String tmp = list.item(i).getAttributes().item(0).getNodeValue();
-			if(tmp.equals(name)){
-				readValues((Element) list.item(i));
-				break;
-			}
-		}
-	}
-
-	public String getConsumerkey() {
-		return consumerkey;
-	}
-
-	public String getConsumersecret() {
-		return consumersecret;
-	}
-
-	public AccessToken getAccessToken() {
-		return new AccessToken(accesstoken, accesstokensecret);
-	}
+	private NodeList list;
 	
-	public Twitter getTwitter(){
-		Twitter twitter = new TwitterFactory().getInstance();
-		twitter.setOAuthConsumer(consumerkey, consumersecret);
-		twitter.setOAuthAccessToken(getAccessToken());
-		return twitter;
-	}
-
-	private NodeList getUserList() throws SAXException, ParserConfigurationException, FileNotFoundException, IOException {
+	public Credentials() throws ParserConfigurationException, SAXException, IOException {
 		File f = new File(System.getProperty("user.dir") + "/login.xml");
 		FileInputStream fis = new FileInputStream(f);
 		BufferedInputStream bis = new BufferedInputStream(fis);
@@ -90,19 +37,32 @@ public class Credentials {
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		Document doc = db.parse(bis);
 		doc.getDocumentElement().normalize();
-		return doc.getElementsByTagName("user");
+		list = doc.getElementsByTagName("user");
 	}
 	
-	private void readValues(Element e) {
+	public int getNumberOfUsers() throws FileNotFoundException, SAXException, ParserConfigurationException, IOException{
+		return list.getLength();
+	}
+
+	public String getName(int i) {
+		Element e = (Element) list.item(i);
+		return e.getAttribute("name");
+	}
+	
+	public Twitter getTwitter(int i){
+		Element e = (Element) list.item(i);
 		Element subElement = (Element)e.getElementsByTagName("consumerkey").item(0);
-		consumerkey = subElement.getChildNodes().item(0).getNodeValue();
-		
+		String consumerkey = subElement.getChildNodes().item(0).getNodeValue();
 		subElement = (Element)e.getElementsByTagName("consumersecret").item(0);
-		consumersecret = subElement.getChildNodes().item(0).getNodeValue();
-		
+		String consumersecret = subElement.getChildNodes().item(0).getNodeValue();
 		subElement = (Element)e.getElementsByTagName("accesstoken").item(0);
-		accesstoken = subElement.getChildNodes().item(0).getNodeValue();
+		String accesstoken = subElement.getChildNodes().item(0).getNodeValue();
 		subElement = (Element)e.getElementsByTagName("accesstokensecret").item(0);
-		accesstokensecret = subElement.getChildNodes().item(0).getNodeValue();
+		String accesstokensecret = subElement.getChildNodes().item(0).getNodeValue();
+		
+		Twitter twitter = new TwitterFactory().getInstance();
+		twitter.setOAuthConsumer(consumerkey, consumersecret);
+		twitter.setOAuthAccessToken(new AccessToken(accesstoken, accesstokensecret));
+		return twitter;
 	}
 }
