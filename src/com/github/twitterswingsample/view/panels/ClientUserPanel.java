@@ -12,11 +12,13 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JToolBar;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
 import com.github.twitterswingsample.view.listener.ShortInfoTexter;
+import com.github.twitterswingsample.view.listener.StatusWritePanelCreator;
 import com.github.twitterswingsample.view.listener.TabPopupMenuOpener;
 import com.github.twitterswingsample.view.listener.authorized.timelineloader.HomeTimelineLoader;
 import com.github.twitterswingsample.view.listener.statusbased.UserInfoPanelCreator;
@@ -33,13 +35,11 @@ public class ClientUserPanel extends JPanel{
 		JTabbedPane pane = new JTabbedPane();
 		pane.addMouseListener(new TabPopupMenuOpener(pane));
 		
-		
 		JPanel timelineTab = new JPanel(new BorderLayout(5, 5));
-		
 		TimelinePanel homeTimeline = new TimelinePanel();
 		homeTimeline.addStatusMouseListenerToStatusProfileImages(new UserInfoPanelCreator(twitter, pane, true));
 		homeTimeline.addMouseListenerToStatusProfileImages(new ShortInfoTexter("Show some information about the user"));
-		
+
 		JScrollPane homeTimelineScrollPane = new JScrollPane(homeTimeline);
 		homeTimelineScrollPane.getVerticalScrollBar().setUI(new MyScrollBarUI());
 		homeTimelineScrollPane.getHorizontalScrollBar().setUI(new MyScrollBarUI());
@@ -50,10 +50,12 @@ public class ClientUserPanel extends JPanel{
 		reloadHomeTimeline.addActionListener(new HomeTimelineLoader(homeTimeline, twitter));
 		timelineTab.add(reloadHomeTimeline, BorderLayout.SOUTH);
 		
+		String screenName = "";
 		try {
 			String tip = "";
 			try {
-				tip = "Home Timeline of @" + twitter.getScreenName();
+				screenName = twitter.getScreenName();
+				tip = "Home Timeline of @" + screenName;
 			} catch (IllegalStateException | TwitterException e) {
 				tip = "Your Home Timeline";
 			}
@@ -65,5 +67,20 @@ public class ClientUserPanel extends JPanel{
 			pane.addTab("Home Timeline", timelineTab);
 		}
 		add(pane, BorderLayout.CENTER);
+		
+		JToolBar toolbar = new JToolBar("@" + screenName, JToolBar.VERTICAL);
+		toolbar.setFloatable(false);
+		JButton openWritePanel;
+		try {
+			BufferedImage image = ImageIO.read(getClass().getResource("images/write.png"));
+			ImageIcon icon = new ImageIcon(image.getScaledInstance(25, 25, Image.SCALE_SMOOTH));
+			openWritePanel = new JButton(icon);
+			openWritePanel.setToolTipText("Write a tweet");
+		} catch (IOException e) {
+			openWritePanel = new JButton("write");
+		}
+		openWritePanel.addActionListener(new StatusWritePanelCreator(pane, twitter));
+		toolbar.add(openWritePanel);
+		add(toolbar, BorderLayout.WEST);
 	}
 }
