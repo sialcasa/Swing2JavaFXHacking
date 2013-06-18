@@ -56,7 +56,9 @@ public class ClientUserPanel extends JPanel{
 			try {
 				screenName = twitter.getScreenName();
 				tip = "Home Timeline of @" + screenName;
-			} catch (IllegalStateException | TwitterException e) {
+			} catch (IllegalStateException e) {
+				tip = "Your Home Timeline";
+			} catch (TwitterException e) {
 				tip = "Your Home Timeline";
 			}
 			

@@ -27,11 +27,11 @@ import twitter4j.Twitter;
 public class TimelinePanel extends JPanel implements Scrollable {
 	
 	private List<Status> statusList;
-	private List<MouseListener> listener = new LinkedList<>();
-	private List<StatusMouseListener> statusListener = new LinkedList<>();
+	private List<MouseListener> listener = new LinkedList<MouseListener>();
+	private List<StatusMouseListener> statusListener = new LinkedList<StatusMouseListener>();
 	
 	public TimelinePanel(){
-		statusList = new LinkedList<>();
+		statusList = new LinkedList<Status>();
 		setLayout(new FlowLayout());
 		add(new JLabel("no content"));
 	}
