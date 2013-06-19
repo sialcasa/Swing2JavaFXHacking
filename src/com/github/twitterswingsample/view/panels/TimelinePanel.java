@@ -1,7 +1,6 @@
 package com.github.twitterswingsample.view.panels;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -10,7 +9,6 @@ import java.awt.event.MouseListener;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Scrollable;
 
@@ -26,53 +24,71 @@ import twitter4j.Twitter;
  */
 public class TimelinePanel extends JPanel implements Scrollable {
 	
-	private List<Status> statusList;
-	private List<MouseListener> listener = new LinkedList<MouseListener>();
+	private List<StatusPanel> statusPanelList;
+	private List<MouseListener> listener;
 	private List<StatusMouseListener> statusListener = new LinkedList<StatusMouseListener>();
 	
 	public TimelinePanel(){
-		statusList = new LinkedList<Status>();
-		setLayout(new FlowLayout());
-		add(new JLabel("no content"));
+		statusPanelList = new LinkedList<StatusPanel>();
+		listener = new LinkedList<MouseListener>();
+		setLayout(new GridBagLayout());
 	}
 
 	public TimelinePanel(Twitter twitter, List<Status> statusList) throws CloneNotSupportedException {
-		setContent(twitter, statusList);
+		addContent(twitter, statusList);
 	}
 	
-	public void setContent(Twitter twitter, List<Status> statusList) throws CloneNotSupportedException{
+	public void addContent(Twitter twitter, List<Status> statusList) throws CloneNotSupportedException{
 		setVisible(false);
 		removeAll();
-		this.statusList = statusList;
-		setLayout(new GridBagLayout());
+		if(statusPanelList.size() > 0){
+			long id = statusPanelList.get(0).getStatus().getId();
+			for (int i = 0; statusList.get(i).getId() > id; i++) {
+				StatusPanel panel = new StatusPanel(twitter, statusList.get(i));
+				addListeners(panel);
+				statusPanelList.add(i, panel);
+			}
+		}
+		else {
+			for (int i = 0; i < statusList.size(); i++) {
+				StatusPanel panel = new StatusPanel(twitter, statusList.get(i));
+				addListeners(panel);
+				statusPanelList.add(panel);
+			}
+		}
+		
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.anchor = GridBagConstraints.WEST;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
-		gbc.insets = new Insets(5, 5, 5, 5);
-		for (int i = 0; i < statusList.size(); i++) {
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.insets = new Insets(6, 0, 0, 0);
+		for (int i = 0; i < statusPanelList.size(); i++) {
 			gbc.gridy = i;
-			StatusPanel panel = new StatusPanel(twitter, statusList.get(i));
-			for (StatusMouseListener l : statusListener) {
-				panel.addStatusMouseListenerToProfileImage(l);
-			}
-			for (MouseListener l : listener) {
-				panel.addMouseListenerToProfileImage(l);
-			}
-			add(panel, gbc);
+			add(statusPanelList.get(i), gbc);
 		}
 		setVisible(true);
 	}
 	
-	public List<Status> getStatusList(){
-		return statusList;
-	}
-	
-	public synchronized void addMouseListenerToStatusProfileImages(MouseListener l) {
+	public void addMouseListenerToStatusProfileImages(MouseListener l) {
 		listener.add(l);
+		for (StatusPanel panel : statusPanelList) {
+			panel.addMouseListenerToProfileImage(l);
+		}
 	}
 	
-	public synchronized void addStatusMouseListenerToStatusProfileImages(StatusMouseListener l) {
+	public void addStatusMouseListenerToStatusProfileImages(StatusMouseListener l) throws CloneNotSupportedException {
 		statusListener.add(l);
+		for (StatusPanel panel : statusPanelList) {
+			panel.addStatusMouseListenerToProfileImage(l);
+		}
+	}
+	
+	private void addListeners(StatusPanel panel) throws CloneNotSupportedException{
+		for (StatusMouseListener l : statusListener) {
+			panel.addStatusMouseListenerToProfileImage(l);
+		}
+		for (MouseListener l : listener) {
+			panel.addMouseListenerToProfileImage(l);
+		}
 	}
 
 	/* methods of interface Scrollable */

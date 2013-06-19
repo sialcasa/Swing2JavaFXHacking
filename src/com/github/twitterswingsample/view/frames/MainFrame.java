@@ -82,29 +82,39 @@ public class MainFrame extends JFrame{
 		} catch (FileNotFoundException e) {
 			ConsolePanel.getInstance().printMessage(new String[]{
 				"File 'login.xml' not found",
-				"See the project homepage for further information"
+				"See the project homepage for further information",
+				e.getLocalizedMessage()
 			});
 		} catch (IOException e) {
 			ConsolePanel.getInstance().printMessage(new String[]{
 				"Unknown error",
-				"Please report this bug!"
+				"Please report this bug!",
+				e.getLocalizedMessage()
 			});
 		} catch (SAXException e) {
 			ConsolePanel.getInstance().printMessage(new String[]{
 				"damaged xml structure in file 'login.xml'",
-				"Repair it!"
+				"Repair it!",
+				e.getLocalizedMessage()
 			});
 		} catch (ParserConfigurationException e) {
 			ConsolePanel.getInstance().printMessage(new String[]{
-				"Internal Error",
-				"Please report this bug!"
+				"Internal Parsing Error",
+				"Please report this bug!",
+				e.getLocalizedMessage()
+			});
+		} catch (CloneNotSupportedException e) {
+			ConsolePanel.getInstance().printMessage(new String[]{
+					"Internal Error",
+					"please report that bug!",
+					e.getLocalizedMessage()
 			});
 		} catch (Exception e) {
 			ConsolePanel.getInstance().printMessage(new String[]{
 				"Unspecified Error",
 				"Perhaps 'login.xml' not filled",
 				"Otherwise, please report this bug!",
-				e.toString()
+				e.getLocalizedMessage()
 			});
 		}
 		

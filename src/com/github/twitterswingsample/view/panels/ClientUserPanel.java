@@ -30,8 +30,8 @@ import com.github.twitterswingsample.view.listener.statusbased.UserInfoPanelCrea
  */
 public class ClientUserPanel extends JPanel{
 	
-	public ClientUserPanel(Twitter twitter) {
-		setLayout(new BorderLayout(5, 5));
+	public ClientUserPanel(Twitter twitter) throws CloneNotSupportedException {
+		setLayout(new BorderLayout());
 		JTabbedPane pane = new JTabbedPane();
 		pane.addMouseListener(new TabPopupMenuOpener(pane));
 		
@@ -72,10 +72,11 @@ public class ClientUserPanel extends JPanel{
 		
 		JToolBar toolbar = new JToolBar("@" + screenName, JToolBar.VERTICAL);
 		toolbar.setFloatable(false);
+		int imgSize = 30;
 		JButton openWritePanel;
 		try {
 			BufferedImage image = ImageIO.read(getClass().getResource("images/write.png"));
-			ImageIcon icon = new ImageIcon(image.getScaledInstance(25, 25, Image.SCALE_SMOOTH));
+			ImageIcon icon = new ImageIcon(image.getScaledInstance(imgSize, imgSize, Image.SCALE_SMOOTH));
 			openWritePanel = new JButton(icon);
 			openWritePanel.setToolTipText("Write a tweet");
 		} catch (IOException e) {

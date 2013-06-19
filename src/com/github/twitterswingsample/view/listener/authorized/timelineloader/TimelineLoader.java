@@ -24,33 +24,12 @@ public abstract class TimelineLoader extends AuthorizedAction {
 	
 	protected void setTimelineContent(List<Status> newStatusList) {
 		try {
-			List<Status> oldStatusList = panel.getStatusList();
-			
-			if(oldStatusList.size() > 0){
-				int numberOfNewStatuses = 0;
-				for (int i = 0; i < newStatusList.size(); i++) {
-					if(newStatusList.get(i).getId() > oldStatusList.get(0).getId()){
-						numberOfNewStatuses++;
-					}
-					else {
-						break;
-					}
-				}
-				
-				for (int i = 0; i < numberOfNewStatuses; i++) {
-					oldStatusList.add(i, newStatusList.get(i));
-				}
-				
-				panel.setContent(getTwitter(), oldStatusList);
-			}
-			else {
-				panel.setContent(getTwitter(), newStatusList);
-			}
+			panel.addContent(getTwitter(), newStatusList);
 		} catch (CloneNotSupportedException e) {
 			ConsolePanel.getInstance().printMessage(new String[]{
 				"Internal Error",
-				e.getLocalizedMessage(),
-				"Please report that bug!"
+				"Please report that bug!",
+				e.getLocalizedMessage()
 			});
 		}
 	}
