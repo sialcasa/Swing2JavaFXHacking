@@ -17,10 +17,29 @@ public class SendStatusListener  extends AuthorizedAction {
 
 	public void run() {
 		try {
-			getTwitter().updateStatus(panel.getStatusText());
-			ConsolePanel.getInstance().printMessage(new String[]{
-					"Successfully tweeted text",
-			});
+			String text = panel.getStatusText();
+			if(text.length() > 0) {
+				if(text.length() < 0) {
+					long start = System.nanoTime();
+					getTwitter().updateStatus(text);
+					long needed = (System.nanoTime() - start) / 1000000;
+					ConsolePanel.getInstance().printMessage(new String[]{
+							"Successfully tweeted text",
+							needed + " milliseconds needed"
+					});
+					panel.setStatusText("");
+				}
+				else {
+					ConsolePanel.getInstance().printMessage(new String[]{
+							"The text of the tweet is too long"
+					});
+				}
+			}
+			else {
+				ConsolePanel.getInstance().printMessage(new String[]{
+						"The text of the tweet is too short"
+				});
+			}
 		} catch (TwitterException e) {
 			ConsolePanel.getInstance().printMessage(new String[]{
 					"Could not tweet text",
