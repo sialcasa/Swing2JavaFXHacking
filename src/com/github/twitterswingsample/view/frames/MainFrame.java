@@ -103,12 +103,6 @@ public class MainFrame extends JFrame{
 				"Please report this bug!",
 				e.getLocalizedMessage()
 			});
-		} catch (CloneNotSupportedException e) {
-			ConsolePanel.getInstance().printMessage(new String[]{
-					"Internal Error",
-					"please report that bug!",
-					e.getLocalizedMessage()
-			});
 		} catch (Exception e) {
 			ConsolePanel.getInstance().printMessage(new String[]{
 				"Unspecified Error",

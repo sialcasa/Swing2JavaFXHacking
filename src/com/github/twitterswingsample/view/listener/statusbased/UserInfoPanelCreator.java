@@ -1,7 +1,7 @@
 package com.github.twitterswingsample.view.listener.statusbased;
 
+import java.awt.Container;
 import java.awt.event.MouseEvent;
-import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 
 import twitter4j.Status;
@@ -21,15 +21,15 @@ import com.github.twitterswingsample.view.panels.UserInfoPanel;
 public class UserInfoPanelCreator extends StatusMouseListener implements Runnable {
 
 	private Twitter twitter;
-	private JComponent container;
+	private Container container;
 	private boolean insideHomeTimeline;
 	
-	public UserInfoPanelCreator(Status status, Twitter twitter, JComponent container, boolean insideHomeTimeline) {
+	public UserInfoPanelCreator(Status status, Twitter twitter, Container container, boolean insideHomeTimeline) {
 		this(twitter, container, insideHomeTimeline);
 		setStatus(status);
 	}
 	
-	public UserInfoPanelCreator(Twitter twitter, JComponent container, boolean insideHomeTimeline) {
+	public UserInfoPanelCreator(Twitter twitter, Container container, boolean insideHomeTimeline) {
 		this.twitter = twitter;
 		this.container = container;
 		this.insideHomeTimeline = insideHomeTimeline;
