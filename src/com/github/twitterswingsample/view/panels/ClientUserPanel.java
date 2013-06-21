@@ -11,12 +11,14 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 
 import twitter4j.Twitter;
 
 import com.github.twitterswingsample.view.listener.HomeTimelinePanelCreator;
+import com.github.twitterswingsample.view.listener.ProjectHashtagTimlinePanelCreator;
 import com.github.twitterswingsample.view.listener.StatusWritePanelCreator;
 import com.github.twitterswingsample.view.listener.TabPopupMenuOpener;
 
@@ -25,7 +27,7 @@ import com.github.twitterswingsample.view.listener.TabPopupMenuOpener;
  * 
  * @author multiprogger
  */
-public class ClientUserPanel extends JPanel{
+public class ClientUserPanel extends JPanel implements UserInfoPanelContainer {
 	
 	private JTabbedPane pane;
 	
@@ -63,6 +65,19 @@ public class ClientUserPanel extends JPanel{
 		}
 		openWritePanel.addActionListener(new StatusWritePanelCreator(twitter, this));
 		toolbar.add(openWritePanel);
+		
+		JButton openProjectHashPanel;
+		try {
+			BufferedImage image = ImageIO.read(getClass().getResource("images/hash.png"));
+			ImageIcon icon = new ImageIcon(image.getScaledInstance(imgSize, imgSize, Image.SCALE_SMOOTH));
+			openProjectHashPanel = new JButton(icon);
+			openProjectHashPanel.setToolTipText("See tweets about the project");
+		} catch (IOException e) {
+			openProjectHashPanel = new JButton("project tweets");
+		}
+		openProjectHashPanel.addActionListener(new ProjectHashtagTimlinePanelCreator(twitter, this));
+		toolbar.add(openProjectHashPanel);
+		
 		add(toolbar, BorderLayout.WEST);
 	}
 	
@@ -72,5 +87,19 @@ public class ClientUserPanel extends JPanel{
 	
 	public void addComponent(String title, Component component){
 		pane.addTab(title, component);
+	}
+
+	public void addUserInfoPanel(String title, UserInfoPanel panel) {
+		JScrollPane pane = new JScrollPane(panel);
+		pane.getVerticalScrollBar().setUI(new MyScrollBarUI());
+		pane.getHorizontalScrollBar().setUI(new MyScrollBarUI());
+		
+		try {
+			BufferedImage image = ImageIO.read(getClass().getResource("images/user.png"));
+			ImageIcon icon = new ImageIcon(image.getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+			addComponent(title, icon, pane, "some information about the user");
+		} catch (IOException e) {
+			addComponent(title, pane);
+		}
 	}
 }

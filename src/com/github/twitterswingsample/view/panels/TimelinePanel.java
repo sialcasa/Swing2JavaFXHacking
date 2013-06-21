@@ -9,10 +9,11 @@ import java.awt.event.MouseListener;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Scrollable;
 
-import com.github.twitterswingsample.view.listener.statusbased.StatusMouseListener;
+import com.github.twitterswingsample.view.listener.authorized.statusbased.StatusMouseListener;
 
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -35,6 +36,7 @@ public class TimelinePanel extends JPanel implements Scrollable {
 	}
 
 	public TimelinePanel(Twitter twitter, List<Status> statusList) throws CloneNotSupportedException {
+		this();
 		addContent(twitter, statusList);
 	}
 	
@@ -60,10 +62,16 @@ public class TimelinePanel extends JPanel implements Scrollable {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.anchor = GridBagConstraints.WEST;
 		gbc.fill = GridBagConstraints.BOTH;
-		gbc.insets = new Insets(6, 0, 0, 0);
-		for (int i = 0; i < statusPanelList.size(); i++) {
-			gbc.gridy = i;
-			add(statusPanelList.get(i), gbc);
+		gbc.insets = new Insets(3, 0, 3, 0);
+		if(statusPanelList.size() > 0) {
+			for (int i = 0; i < statusPanelList.size(); i++) {
+				gbc.gridy = i + 1;
+				add(statusPanelList.get(i), gbc);
+			}
+		}
+		else {
+			gbc.gridy = 1;
+			add(new JLabel("no tweets"), gbc);
 		}
 		setVisible(true);
 	}

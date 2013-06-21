@@ -22,8 +22,8 @@ import org.xml.sax.SAXException;
 import com.github.twitterswingsample.model.Credentials;
 import com.github.twitterswingsample.view.listener.ProgramCloser;
 import com.github.twitterswingsample.view.listener.SwitchUserListener;
-import com.github.twitterswingsample.view.panels.ConsolePanel;
 import com.github.twitterswingsample.view.panels.ClientUserPanel;
+import com.github.twitterswingsample.view.panels.ConsolePanel;
 import com.github.twitterswingsample.view.panels.ShortInfoPanel;
 
 /**
@@ -32,6 +32,8 @@ import com.github.twitterswingsample.view.panels.ShortInfoPanel;
  * @author multiprogger
  */
 public class MainFrame extends JFrame{
+	
+	private Credentials creds;
 	
 	public MainFrame() {
 		setBounds(50, 0, 600, 700);
@@ -58,14 +60,13 @@ public class MainFrame extends JFrame{
 			setIconImage(ImageIO.read(getClass().getResource("images/icon.png")));
 		} catch (IOException e) {}
 
-		JSplitPane pane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-		pane.setBottomComponent(ConsolePanel.getInstance());
-		pane.setDividerLocation(1.);
-		pane.setResizeWeight(1.);
-		pane.setOneTouchExpandable(true);
-		add(pane, BorderLayout.CENTER);
+		JSplitPane vertical = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+		vertical.setBottomComponent(ConsolePanel.getInstance());
+		vertical.setResizeWeight(1.);
+		vertical.setOneTouchExpandable(true);
+		
 		try {
-			Credentials creds = new Credentials();
+			creds = new Credentials();
 			CardLayout layout = new CardLayout();
 			JPanel cardPanel = new JPanel(layout);
 			ButtonGroup group = new ButtonGroup();
@@ -78,7 +79,8 @@ public class MainFrame extends JFrame{
 				cardPanel.add(creds.getName(i), new ClientUserPanel(creds.getTwitter(i)));
 			}
 			group.getElements().nextElement().setSelected(true);
-			pane.setTopComponent(cardPanel);
+			vertical.setTopComponent(cardPanel);
+
 		} catch (FileNotFoundException e) {
 			ConsolePanel.getInstance().printMessage(new String[]{
 				"File 'login.xml' not found",
@@ -111,11 +113,12 @@ public class MainFrame extends JFrame{
 				e.getLocalizedMessage()
 			});
 		}
-		
+
+		add(vertical, BorderLayout.CENTER);
 		add(ShortInfoPanel.getInstance(), BorderLayout.SOUTH);
 	}
 	
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args){
 		new MainFrame().setVisible(true);
 	}
 }

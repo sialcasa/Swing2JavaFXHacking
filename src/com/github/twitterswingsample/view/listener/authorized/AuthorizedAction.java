@@ -19,4 +19,8 @@ public abstract class AuthorizedAction extends MultithreadingListener{
 	protected Twitter getTwitter() {
 		return twitter;
 	}
+	
+	public void setTwitter(Twitter twitter) {
+		this.twitter = twitter;
+	}
 }

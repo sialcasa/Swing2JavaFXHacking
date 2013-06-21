@@ -14,8 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import com.github.twitterswingsample.view.listener.authorized.statusbased.UserInfoPanelCreator;
 import com.github.twitterswingsample.view.listener.authorized.timelineloader.HomeTimelineLoader;
-import com.github.twitterswingsample.view.listener.statusbased.UserInfoPanelCreator;
 import com.github.twitterswingsample.view.panels.ClientUserPanel;
 import com.github.twitterswingsample.view.panels.ConsolePanel;
 import com.github.twitterswingsample.view.panels.MyScrollBarUI;

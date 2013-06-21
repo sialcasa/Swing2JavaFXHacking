@@ -12,6 +12,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -22,8 +24,9 @@ import javax.swing.JPanel;
 
 import com.github.twitterswingsample.view.TextHighlighter;
 import com.github.twitterswingsample.view.listener.StatusHyperlinkListener;
+import com.github.twitterswingsample.view.listener.authorized.AuthorizedAction;
 import com.github.twitterswingsample.view.listener.authorized.Retweeter;
-import com.github.twitterswingsample.view.listener.statusbased.StatusMouseListener;
+import com.github.twitterswingsample.view.listener.authorized.statusbased.StatusMouseListener;
 
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -38,8 +41,10 @@ public class StatusPanel extends JPanel{
 
 	private JLabel profileImage;
 	private Status status;
+	private List<AuthorizedAction> authorizedActions;
 	
 	public StatusPanel(Twitter twitter, Status status) {
+		authorizedActions = new ArrayList<AuthorizedAction>();
 		this.status = status;
 		int fontSize = 13;
 		Font font = new Font("Arial", Font.BOLD, fontSize);
@@ -88,7 +93,9 @@ public class StatusPanel extends JPanel{
 		retweetBtn.setBorderPainted(false);
 		retweetBtn.setFont(font);
 		retweetBtn.setBackground(new Color(120,172,237));
-		retweetBtn.addActionListener(new Retweeter(retweetBtn, twitter, status));
+		Retweeter retweeter = new Retweeter(retweetBtn, twitter, status);
+		authorizedActions.add(retweeter);
+		retweetBtn.addActionListener(retweeter);
 		try {
 			BufferedImage image = ImageIO.read(getClass().getResource("images/retweet.png"));
 			ImageIcon icon = new ImageIcon(image.getScaledInstance(fontSize + 5, fontSize + 5, Image.SCALE_SMOOTH));
@@ -129,6 +136,6 @@ public class StatusPanel extends JPanel{
 	public synchronized void addStatusMouseListenerToProfileImage(StatusMouseListener l) throws CloneNotSupportedException {
 		l = (StatusMouseListener) l.clone();
 		l.setStatus(status);
-		addMouseListenerToProfileImage(l);
+		profileImage.addMouseListener(l);
 	}
 }
