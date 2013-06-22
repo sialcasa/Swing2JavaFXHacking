@@ -1,5 +1,6 @@
 package com.github.twitterswingsample.view.panels;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -36,7 +37,7 @@ public class UserInfoPanel extends JPanel{
 		this(twitter, user, twitter.showFriendship(twitter.getId(), user.getId()).isSourceFollowingTarget());
 	}
 	
-	public UserInfoPanel(Twitter twitter, User user, boolean followed) throws IllegalStateException, TwitterException {
+	public UserInfoPanel(Twitter twitter, User user, boolean followed) throws IllegalStateException {
 		if (user == null) {
 			setLayout(new FlowLayout());
 			add(new JLabel("no user defined"));
@@ -92,13 +93,14 @@ public class UserInfoPanel extends JPanel{
 			add(new JLabel("has created his account at " + user.getCreatedAt()), gbc);
 			
 			followBtn = new JButton();
+			followBtn.setBackground(new Color(120,172,237));
 			gbc.gridy = 8;
 			add(followBtn, gbc);
 			
 			setFollowed(followed);
 		}
 	}
-	
+
 	public User getUser() {
 		return user;
 	}

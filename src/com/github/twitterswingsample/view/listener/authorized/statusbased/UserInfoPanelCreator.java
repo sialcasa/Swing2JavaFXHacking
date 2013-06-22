@@ -1,8 +1,6 @@
-package com.github.twitterswingsample.view.listener.statusbased;
+package com.github.twitterswingsample.view.listener.authorized.statusbased;
 
-import java.awt.Container;
 import java.awt.event.MouseEvent;
-import javax.swing.JScrollPane;
 
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -10,7 +8,7 @@ import twitter4j.TwitterException;
 import twitter4j.User;
 
 import com.github.twitterswingsample.view.panels.ConsolePanel;
-import com.github.twitterswingsample.view.panels.MyScrollBarUI;
+import com.github.twitterswingsample.view.panels.UserInfoPanelContainer;
 import com.github.twitterswingsample.view.panels.UserInfoPanel;
 
 /**
@@ -18,19 +16,14 @@ import com.github.twitterswingsample.view.panels.UserInfoPanel;
  * 
  * @author multiprogger
  */
-public class UserInfoPanelCreator extends StatusMouseListener implements Runnable {
+public class UserInfoPanelCreator extends StatusMouseListener {
 
-	private Twitter twitter;
-	private Container container;
+	private UserInfoPanelContainer container;
 	private boolean insideHomeTimeline;
 	
-	public UserInfoPanelCreator(Status status, Twitter twitter, Container container, boolean insideHomeTimeline) {
-		this(twitter, container, insideHomeTimeline);
+	public UserInfoPanelCreator(Status status, Twitter twitter, UserInfoPanelContainer container, boolean insideHomeTimeline) {
+		super(twitter);
 		setStatus(status);
-	}
-	
-	public UserInfoPanelCreator(Twitter twitter, Container container, boolean insideHomeTimeline) {
-		this.twitter = twitter;
 		this.container = container;
 		this.insideHomeTimeline = insideHomeTimeline;
 	}
@@ -40,19 +33,16 @@ public class UserInfoPanelCreator extends StatusMouseListener implements Runnabl
 			User user = getStatus().getUser();
 			UserInfoPanel panel;
 			if (insideHomeTimeline) {
-				panel = new UserInfoPanel(twitter, user, true);
+				panel = new UserInfoPanel(getTwitter(), user, true);
 			}
 			else {
-				panel = new UserInfoPanel(twitter, user);
+				panel = new UserInfoPanel(getTwitter(), user);
 			}
-			JScrollPane pane = new JScrollPane(panel);
-			pane.getVerticalScrollBar().setUI(new MyScrollBarUI());
-			pane.getHorizontalScrollBar().setUI(new MyScrollBarUI());
-			container.add("@" + user.getScreenName(), pane);
+			container.addUserInfoPanel("@" + user.getScreenName(), panel);
 		} catch (TwitterException e) {
 			ConsolePanel.getInstance().printMessage(new String[]{
 				"Could not create user information",
-				e.getMessage()
+				e.getLocalizedMessage()
 			});
 		}
 	}

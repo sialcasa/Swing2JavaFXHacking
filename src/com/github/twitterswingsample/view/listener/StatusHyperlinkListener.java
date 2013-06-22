@@ -20,8 +20,10 @@ public class StatusHyperlinkListener implements HyperlinkListener {
 			if(Desktop.isDesktopSupported()) {
 			    try {
 					Desktop.getDesktop().browse(e.getURL().toURI());
-				} catch (IOException | URISyntaxException e1) {
+				} catch (IOException e1) {
 					new ErrorMessageFrame("Unable to open Link");
+				} catch (URISyntaxException e1) {
+					new ErrorMessageFrame("Faulty URL");
 				}
 			}
 			else {

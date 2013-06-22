@@ -18,13 +18,16 @@ public class TabPopupMenuOpener implements MouseListener {
 	}
 	
 	public void mousePressed(MouseEvent e) {
-        if (e.isPopupTrigger())
-           popup.show(e.getComponent(), e.getX(), e.getY());
-     }
-     public void mouseReleased(MouseEvent e) {
-        if (e.isPopupTrigger())
-           popup.show(e.getComponent(), e.getX(), e.getY());
-     }
+		if (e.isPopupTrigger()) {
+			popup.show(e.getComponent(), e.getX(), e.getY());
+		}
+	}
+
+	public void mouseReleased(MouseEvent e) {
+		if (e.isPopupTrigger()) {
+			popup.show(e.getComponent(), e.getX(), e.getY());
+		}
+	}
 
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}

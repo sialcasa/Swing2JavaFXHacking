@@ -3,7 +3,6 @@ package com.github.twitterswingsample.model;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -40,7 +39,7 @@ public class Credentials {
 		list = doc.getElementsByTagName("user");
 	}
 	
-	public int getNumberOfUsers() throws FileNotFoundException, SAXException, ParserConfigurationException, IOException{
+	public int getNumberOfUsers() {
 		return list.getLength();
 	}
 
