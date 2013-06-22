@@ -19,6 +19,7 @@ import twitter4j.Twitter;
 
 import com.github.twitterswingsample.view.listener.HomeTimelinePanelCreator;
 import com.github.twitterswingsample.view.listener.ProjectHashtagTimlinePanelCreator;
+import com.github.twitterswingsample.view.listener.SearchPanelCreator;
 import com.github.twitterswingsample.view.listener.StatusWritePanelCreator;
 import com.github.twitterswingsample.view.listener.TabPopupMenuOpener;
 
@@ -65,6 +66,18 @@ public class ClientUserPanel extends JPanel implements UserInfoPanelContainer {
 		}
 		openWritePanel.addActionListener(new StatusWritePanelCreator(twitter, this));
 		toolbar.add(openWritePanel);
+		
+		JButton openSearchPanel;
+		try {
+			BufferedImage image = ImageIO.read(getClass().getResource("images/search.png"));
+			ImageIcon icon = new ImageIcon(image.getScaledInstance(imgSize, imgSize, Image.SCALE_SMOOTH));
+			openSearchPanel = new JButton(icon);
+			openSearchPanel.setToolTipText("Search for tweets");
+		} catch (IOException e) {
+			openSearchPanel = new JButton("Search");
+		}
+		openSearchPanel.addActionListener(new SearchPanelCreator(twitter, this));
+		toolbar.add(openSearchPanel);
 		
 		JButton openProjectHashPanel;
 		try {

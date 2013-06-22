@@ -7,13 +7,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -23,10 +20,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.github.twitterswingsample.view.TextHighlighter;
+import com.github.twitterswingsample.view.listener.ShortInfoTexter;
 import com.github.twitterswingsample.view.listener.StatusHyperlinkListener;
-import com.github.twitterswingsample.view.listener.authorized.AuthorizedAction;
 import com.github.twitterswingsample.view.listener.authorized.Retweeter;
-import com.github.twitterswingsample.view.listener.authorized.statusbased.StatusMouseListener;
+import com.github.twitterswingsample.view.listener.authorized.statusbased.UserInfoPanelCreator;
 
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -41,10 +38,8 @@ public class StatusPanel extends JPanel{
 
 	private JLabel profileImage;
 	private Status status;
-	private List<AuthorizedAction> authorizedActions;
 	
-	public StatusPanel(Twitter twitter, Status status) {
-		authorizedActions = new ArrayList<AuthorizedAction>();
+	public StatusPanel(Twitter twitter, Status status, ClientUserPanel cuPanel, boolean homeTimeline) {
 		this.status = status;
 		int fontSize = 13;
 		Font font = new Font("Arial", Font.BOLD, fontSize);
@@ -60,6 +55,8 @@ public class StatusPanel extends JPanel{
 			gbc.gridheight = 5;
 			profileImage = new JLabel(new ImageIcon(new URL(user.getBiggerProfileImageURL())));
 			profileImage.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			profileImage.addMouseListener(new UserInfoPanelCreator(status, twitter, cuPanel, homeTimeline));
+			profileImage.addMouseListener(new ShortInfoTexter("Show some information about the user"));
 			add(profileImage, gbc);
 		} catch (MalformedURLException e) {
 			ConsolePanel.getInstance().printMessage(new String[]{"Could not load profile image of " + user.getScreenName()});
@@ -94,7 +91,6 @@ public class StatusPanel extends JPanel{
 		retweetBtn.setFont(font);
 		retweetBtn.setBackground(new Color(120,172,237));
 		Retweeter retweeter = new Retweeter(retweetBtn, twitter, status);
-		authorizedActions.add(retweeter);
 		retweetBtn.addActionListener(retweeter);
 		try {
 			BufferedImage image = ImageIO.read(getClass().getResource("images/retweet.png"));
@@ -127,15 +123,5 @@ public class StatusPanel extends JPanel{
 	
 	public Status getStatus(){
 		return status;
-	}
-	
-	public synchronized void addMouseListenerToProfileImage(MouseListener l) {
-		profileImage.addMouseListener(l);
-	}
-	
-	public synchronized void addStatusMouseListenerToProfileImage(StatusMouseListener l) throws CloneNotSupportedException {
-		l = (StatusMouseListener) l.clone();
-		l.setStatus(status);
-		profileImage.addMouseListener(l);
 	}
 }

@@ -37,7 +37,7 @@ public class UserInfoPanel extends JPanel{
 		this(twitter, user, twitter.showFriendship(twitter.getId(), user.getId()).isSourceFollowingTarget());
 	}
 	
-	public UserInfoPanel(Twitter twitter, User user, boolean followed) throws IllegalStateException, TwitterException {
+	public UserInfoPanel(Twitter twitter, User user, boolean followed) throws IllegalStateException {
 		if (user == null) {
 			setLayout(new FlowLayout());
 			add(new JLabel("no user defined"));

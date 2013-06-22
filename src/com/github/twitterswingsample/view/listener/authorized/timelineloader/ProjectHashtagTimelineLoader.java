@@ -16,7 +16,7 @@ public class ProjectHashtagTimelineLoader extends TimelineLoader{
 	public void run() {
 		try {
 			long start = System.nanoTime();
-			setTimelineContent(getTwitter().search(new Query("#T4JSS")).getTweets());
+			getTimelinePanel().replaceContent(getTwitter(), getTwitter().search(new Query("#T4JSS")).getTweets());
 			long needed = (System.nanoTime() - start) / 1000000;
 			
 			ConsolePanel.getInstance().printMessage(new String[]{

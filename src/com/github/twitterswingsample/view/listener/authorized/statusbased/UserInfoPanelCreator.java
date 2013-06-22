@@ -22,12 +22,8 @@ public class UserInfoPanelCreator extends StatusMouseListener {
 	private boolean insideHomeTimeline;
 	
 	public UserInfoPanelCreator(Status status, Twitter twitter, UserInfoPanelContainer container, boolean insideHomeTimeline) {
-		this(twitter, container, insideHomeTimeline);
-		setStatus(status);
-	}
-	
-	public UserInfoPanelCreator(Twitter twitter, UserInfoPanelContainer container, boolean insideHomeTimeline) {
 		super(twitter);
+		setStatus(status);
 		this.container = container;
 		this.insideHomeTimeline = insideHomeTimeline;
 	}

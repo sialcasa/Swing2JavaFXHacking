@@ -20,7 +20,7 @@ public class HomeTimelineLoader extends TimelineLoader{
 	public void run() {
 		try {
 			long start = System.nanoTime();
-			setTimelineContent(getTwitter().getHomeTimeline());
+			getTimelinePanel().addContent(getTwitter(), getTwitter().getHomeTimeline());
 			long needed = (System.nanoTime() - start) / 1000000;
 			
 			ConsolePanel.getInstance().printMessage(new String[]{

@@ -16,10 +16,8 @@ import javax.swing.JScrollPane;
 
 import twitter4j.Twitter;
 
-import com.github.twitterswingsample.view.listener.authorized.statusbased.UserInfoPanelCreator;
 import com.github.twitterswingsample.view.listener.authorized.timelineloader.ProjectHashtagTimelineLoader;
 import com.github.twitterswingsample.view.panels.ClientUserPanel;
-import com.github.twitterswingsample.view.panels.ConsolePanel;
 import com.github.twitterswingsample.view.panels.MyScrollBarUI;
 import com.github.twitterswingsample.view.panels.TimelinePanel;
 
@@ -35,16 +33,7 @@ public class ProjectHashtagTimlinePanelCreator implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		JPanel timelineTab = new JPanel(new BorderLayout(5, 5));
-		TimelinePanel timeline = new TimelinePanel();
-		try {
-			timeline.addStatusMouseListenerToStatusProfileImages(new UserInfoPanelCreator(twitter, panel, false));
-		} catch (CloneNotSupportedException e1) {
-			ConsolePanel.getInstance().printMessage(new String[]{
-				"Could not add StatusMouseListener",
-				"Please report that bug!"
-			});
-		}
-		timeline.addMouseListenerToStatusProfileImages(new ShortInfoTexter("Show some information about the user"));
+		TimelinePanel timeline = new TimelinePanel(panel, false);
 
 		JScrollPane timelineScrollPane = new JScrollPane(timeline);
 		timelineScrollPane.getVerticalScrollBar().setUI(new MyScrollBarUI());
