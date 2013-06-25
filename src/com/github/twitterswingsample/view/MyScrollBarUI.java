@@ -1,4 +1,4 @@
-package com.github.twitterswingsample.view.panels;
+package com.github.twitterswingsample.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -23,7 +23,7 @@ public class MyScrollBarUI extends BasicScrollBarUI {
     @Override
     protected void paintTrack(Graphics g, JComponent c,
             Rectangle trackBounds) {
-        g.setColor(Color.GRAY);
+    	g.setColor(Color.LIGHT_GRAY);
         g.fillRect(trackBounds.x, trackBounds.y, trackBounds.width,
                 trackBounds.height);
     }
@@ -31,7 +31,7 @@ public class MyScrollBarUI extends BasicScrollBarUI {
     @Override
     protected void paintThumb(Graphics g, JComponent c,
             Rectangle thumbBounds) {
-        g.setColor(Color.LIGHT_GRAY);
+    	g.setColor(Color.LIGHT_GRAY);
         g.fillRect(thumbBounds.x + 2, thumbBounds.y + 2, thumbBounds.width - 3,
                 thumbBounds.height - 3);
     }

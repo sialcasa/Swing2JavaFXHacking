@@ -10,7 +10,6 @@ import twitter4j.TwitterException;
 import twitter4j.User;
 
 import com.github.twitterswingsample.view.panels.ConsolePanel;
-import com.github.twitterswingsample.view.panels.MyScrollBarUI;
 import com.github.twitterswingsample.view.panels.UserInfoPanel;
 
 /**
@@ -46,8 +45,8 @@ public class UserInfoPanelCreator extends StatusMouseListener implements Runnabl
 				panel = new UserInfoPanel(twitter, user);
 			}
 			JScrollPane pane = new JScrollPane(panel);
-			pane.getVerticalScrollBar().setUI(new MyScrollBarUI());
-			pane.getHorizontalScrollBar().setUI(new MyScrollBarUI());
+//			pane.getVerticalScrollBar().setUI(new MyScrollBarUI());
+//			pane.getHorizontalScrollBar().setUI(new MyScrollBarUI());
 			container.add("@" + user.getScreenName(), pane);
 		} catch (TwitterException e) {
 			ConsolePanel.getInstance().printMessage(new String[]{

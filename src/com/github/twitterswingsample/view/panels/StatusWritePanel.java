@@ -1,7 +1,6 @@
 package com.github.twitterswingsample.view.panels;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 
@@ -34,7 +33,6 @@ public class StatusWritePanel extends JPanel{
 		
 		JPanel south = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
 		JButton send = new JButton("tweet");
-		send.setBackground(new Color(120,172,237));
 		send.addActionListener(new SendStatusListener(twitter, this));
 		south.add(countLabel);
 		south.add(send);

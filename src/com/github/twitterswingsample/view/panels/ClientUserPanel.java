@@ -104,8 +104,8 @@ public class ClientUserPanel extends JPanel implements UserInfoPanelContainer {
 
 	public void addUserInfoPanel(String title, UserInfoPanel panel) {
 		JScrollPane pane = new JScrollPane(panel);
-		pane.getVerticalScrollBar().setUI(new MyScrollBarUI());
-		pane.getHorizontalScrollBar().setUI(new MyScrollBarUI());
+//		pane.getVerticalScrollBar().setUI(new MyScrollBarUI());
+//		pane.getHorizontalScrollBar().setUI(new MyScrollBarUI());
 		
 		try {
 			BufferedImage image = ImageIO.read(getClass().getResource("images/user.png"));

@@ -1,7 +1,6 @@
 package com.github.twitterswingsample.view.listener;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +15,6 @@ import javax.swing.JScrollPane;
 
 import com.github.twitterswingsample.view.listener.authorized.timelineloader.HomeTimelineLoader;
 import com.github.twitterswingsample.view.panels.ClientUserPanel;
-import com.github.twitterswingsample.view.panels.MyScrollBarUI;
 import com.github.twitterswingsample.view.panels.TimelinePanel;
 
 import twitter4j.Twitter;
@@ -37,12 +35,11 @@ public class HomeTimelinePanelCreator implements ActionListener {
 		TimelinePanel homeTimeline = new TimelinePanel(panel, true);
 
 		JScrollPane homeTimelineScrollPane = new JScrollPane(homeTimeline);
-		homeTimelineScrollPane.getVerticalScrollBar().setUI(new MyScrollBarUI());
-		homeTimelineScrollPane.getHorizontalScrollBar().setUI(new MyScrollBarUI());
+//		homeTimelineScrollPane.getVerticalScrollBar().setUI(new MyScrollBarUI());
+//		homeTimelineScrollPane.getHorizontalScrollBar().setUI(new MyScrollBarUI());
 		timelineTab.add(homeTimelineScrollPane, BorderLayout.CENTER);
 		
 		JButton reloadHomeTimeline = new JButton("load Home Timeline");
-		reloadHomeTimeline.setBackground(new Color(120,172,237));
 		reloadHomeTimeline.addActionListener(new HomeTimelineLoader(homeTimeline, twitter));
 		timelineTab.add(reloadHomeTimeline, BorderLayout.SOUTH);
 		

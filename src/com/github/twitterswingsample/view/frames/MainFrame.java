@@ -2,7 +2,6 @@ package com.github.twitterswingsample.view.frames;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Font;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -15,11 +14,15 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
 import com.github.twitterswingsample.model.Credentials;
+import com.github.twitterswingsample.view.TwitterTheme;
 import com.github.twitterswingsample.view.listener.ProgramCloser;
 import com.github.twitterswingsample.view.listener.SwitchUserListener;
 import com.github.twitterswingsample.view.panels.ClientUserPanel;
@@ -37,22 +40,28 @@ public class MainFrame extends JFrame{
 	
 	public MainFrame() {
 		setBounds(50, 0, 600, 700);
+		setExtendedState(MAXIMIZED_VERT);
 		setTitle("Twitter4J Swing Sample");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new BorderLayout(2, 2));
+		try {
+			MetalLookAndFeel.setCurrentTheme(new TwitterTheme());
+			UIManager.setLookAndFeel(new MetalLookAndFeel());
+		} catch (UnsupportedLookAndFeelException e1) {
+			ConsolePanel.getInstance().printMessage(new String[]{
+				"Look-And-Feel could not be set",
+				e1.getLocalizedMessage()
+			});
+		}
 		
-		Font menuFont = new Font("Arial", Font.BOLD, 13);
 		JMenuBar jmb = new JMenuBar();
 		JMenu file = new JMenu("File"),
 		switchUser = new JMenu("Switch user");
 		JMenuItem exit = new JMenuItem("Close");
-		switchUser.setFont(menuFont);
 		file.add(switchUser);
 		file.addSeparator();
-		exit.setFont(menuFont);
 		exit.addActionListener(new ProgramCloser());
 		file.add(exit);
-		file.setFont(menuFont);
 		jmb.add(file);
 		setJMenuBar(jmb);
 		
@@ -72,7 +81,6 @@ public class MainFrame extends JFrame{
 			ButtonGroup group = new ButtonGroup();
 			for (int i = 0; i < creds.getNumberOfUsers(); i++) {
 				JCheckBoxMenuItem item = new JCheckBoxMenuItem(creds.getName(i));
-				item.setFont(menuFont);
 				item.addActionListener(new SwitchUserListener(layout, cardPanel, creds.getName(i)));
 				group.add(item);
 				switchUser.add(item);

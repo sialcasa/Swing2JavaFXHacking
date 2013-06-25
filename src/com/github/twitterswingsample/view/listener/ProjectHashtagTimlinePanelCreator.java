@@ -1,7 +1,6 @@
 package com.github.twitterswingsample.view.listener;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +17,6 @@ import twitter4j.Twitter;
 
 import com.github.twitterswingsample.view.listener.authorized.timelineloader.ProjectHashtagTimelineLoader;
 import com.github.twitterswingsample.view.panels.ClientUserPanel;
-import com.github.twitterswingsample.view.panels.MyScrollBarUI;
 import com.github.twitterswingsample.view.panels.TimelinePanel;
 
 public class ProjectHashtagTimlinePanelCreator implements ActionListener {
@@ -36,12 +34,11 @@ public class ProjectHashtagTimlinePanelCreator implements ActionListener {
 		TimelinePanel timeline = new TimelinePanel(panel, false);
 
 		JScrollPane timelineScrollPane = new JScrollPane(timeline);
-		timelineScrollPane.getVerticalScrollBar().setUI(new MyScrollBarUI());
-		timelineScrollPane.getHorizontalScrollBar().setUI(new MyScrollBarUI());
+//		timelineScrollPane.getVerticalScrollBar().setUI(new MyScrollBarUI());
+//		timelineScrollPane.getHorizontalScrollBar().setUI(new MyScrollBarUI());
 		timelineTab.add(timelineScrollPane, BorderLayout.CENTER);
 		
 		JButton reloadTimeline = new JButton("load #T4JSS Tweets");
-		reloadTimeline.setBackground(new Color(120,172,237));
 		reloadTimeline.addActionListener(new ProjectHashtagTimelineLoader(timeline, twitter));
 		timelineTab.add(reloadTimeline, BorderLayout.SOUTH);
 		
