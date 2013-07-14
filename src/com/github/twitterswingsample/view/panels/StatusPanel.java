@@ -37,7 +37,7 @@ public class StatusPanel extends JPanel{
 	private JLabel profileImage;
 	private Status status;
 	
-	public StatusPanel(Twitter twitter, Status status, ClientUserPanel cuPanel, boolean homeTimeline) {
+	public StatusPanel(Twitter twitter, Status status, ClientUserPanel cuPanel, boolean isHomeTimeline) {
 		this.status = status;
 		setLayout(new GridBagLayout());
 		
@@ -50,7 +50,7 @@ public class StatusPanel extends JPanel{
 			gbc.gridheight = 5;
 			profileImage = new JLabel(new ImageIcon(new URL(user.getBiggerProfileImageURL())));
 			profileImage.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			profileImage.addMouseListener(new UserInfoPanelCreator(status, twitter, cuPanel, homeTimeline));
+			profileImage.addMouseListener(new UserInfoPanelCreator(status, twitter, cuPanel, isHomeTimeline));
 			profileImage.addMouseListener(new ShortInfoTexter("Show some information about the user"));
 			add(profileImage, gbc);
 		} catch (MalformedURLException e) {

@@ -96,10 +96,11 @@ public class ClientUserPanel extends JPanel implements UserInfoPanelContainer {
 	
 	public void addComponent(String title, Icon icon, Component component, String tip){
 		pane.addTab(title, icon, component, tip);
+		pane.setSelectedIndex(pane.getTabCount() - 1);
 	}
 	
-	public void addComponent(String title, Component component){
-		pane.addTab(title, component);
+	public void addComponent(String title, Component component) {
+		addComponent(title, null, component, "another tab");
 	}
 
 	public void addUserInfoPanel(String title, UserInfoPanel panel) {
