@@ -9,13 +9,15 @@ public class RemainingCharsListener implements CaretListener {
 
 	private JTextArea area;
 	private JLabel label;
+	private int limit;
 	
-	public RemainingCharsListener(JTextArea area, JLabel label) {
+	public RemainingCharsListener(JTextArea area, JLabel label, int limit) {
 		this.area = area;
 		this.label = label;
+		this.limit = limit;
 	}
 
 	public void caretUpdate(CaretEvent e) {
-		label.setText((140 - area.getText().length()) + "");
+		label.setText((limit - area.getText().length()) + "");
 	}
 }

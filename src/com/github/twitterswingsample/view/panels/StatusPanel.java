@@ -12,12 +12,12 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.github.twitterswingsample.view.TextHighlighter;
+import com.github.twitterswingsample.view.TwitterButton;
 import com.github.twitterswingsample.view.listener.ShortInfoTexter;
 import com.github.twitterswingsample.view.listener.StatusHyperlinkListener;
 import com.github.twitterswingsample.view.listener.authorized.Retweeter;
@@ -78,8 +78,7 @@ public class StatusPanel extends JPanel{
 		add(created, gbc);
 
 		gbc.gridy = 4;
-		JButton retweetBtn = new JButton("retweet");
-		retweetBtn.setBorderPainted(false);
+		TwitterButton retweetBtn = new TwitterButton("retweet");
 		Retweeter retweeter = new Retweeter(retweetBtn, twitter, status);
 		retweetBtn.addActionListener(retweeter);
 		int imgSize = 17;

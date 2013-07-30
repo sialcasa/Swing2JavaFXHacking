@@ -9,14 +9,13 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 
 import twitter4j.Twitter;
 
+import com.github.twitterswingsample.view.TwitterButton;
 import com.github.twitterswingsample.view.listener.HomeTimelinePanelCreator;
 import com.github.twitterswingsample.view.listener.ProjectHashtagTimlinePanelCreator;
 import com.github.twitterswingsample.view.listener.SearchPanelCreator;
@@ -28,7 +27,7 @@ import com.github.twitterswingsample.view.listener.TabPopupMenuOpener;
  * 
  * @author multiprogger
  */
-public class ClientUserPanel extends JPanel implements UserInfoPanelContainer {
+public class ClientUserPanel extends JPanel {
 	
 	private JTabbedPane pane;
 	
@@ -43,50 +42,50 @@ public class ClientUserPanel extends JPanel implements UserInfoPanelContainer {
 		JToolBar toolbar = new JToolBar(JToolBar.VERTICAL);
 		toolbar.setFloatable(false);
 		int imgSize = 30;
-		JButton openHomePanel;
+		TwitterButton openHomePanel;
 		try {
 			BufferedImage image = ImageIO.read(getClass().getResource("images/home.png"));
 			ImageIcon icon = new ImageIcon(image.getScaledInstance(imgSize, imgSize, Image.SCALE_SMOOTH));
-			openHomePanel = new JButton(icon);
+			openHomePanel = new TwitterButton(icon);
 			openHomePanel.setToolTipText("See your Home Timeline");
 		} catch (IOException e) {
-			openHomePanel = new JButton("Home");
+			openHomePanel = new TwitterButton("Home");
 		}
 		openHomePanel.addActionListener(new HomeTimelinePanelCreator(twitter, this));
 		toolbar.add(openHomePanel);
 		
-		JButton openWritePanel;
+		TwitterButton openWritePanel;
 		try {
 			BufferedImage image = ImageIO.read(getClass().getResource("images/write.png"));
 			ImageIcon icon = new ImageIcon(image.getScaledInstance(imgSize, imgSize, Image.SCALE_SMOOTH));
-			openWritePanel = new JButton(icon);
+			openWritePanel = new TwitterButton(icon);
 			openWritePanel.setToolTipText("Write a tweet");
 		} catch (IOException e) {
-			openWritePanel = new JButton("write");
+			openWritePanel = new TwitterButton("write");
 		}
 		openWritePanel.addActionListener(new StatusWritePanelCreator(twitter, this));
 		toolbar.add(openWritePanel);
 		
-		JButton openSearchPanel;
+		TwitterButton openSearchPanel;
 		try {
 			BufferedImage image = ImageIO.read(getClass().getResource("images/search.png"));
 			ImageIcon icon = new ImageIcon(image.getScaledInstance(imgSize, imgSize, Image.SCALE_SMOOTH));
-			openSearchPanel = new JButton(icon);
+			openSearchPanel = new TwitterButton(icon);
 			openSearchPanel.setToolTipText("Search for tweets");
 		} catch (IOException e) {
-			openSearchPanel = new JButton("Search");
+			openSearchPanel = new TwitterButton("Search");
 		}
 		openSearchPanel.addActionListener(new SearchPanelCreator(twitter, this));
 		toolbar.add(openSearchPanel);
 		
-		JButton openProjectHashPanel;
+		TwitterButton openProjectHashPanel;
 		try {
 			BufferedImage image = ImageIO.read(getClass().getResource("images/hash.png"));
 			ImageIcon icon = new ImageIcon(image.getScaledInstance(imgSize, imgSize, Image.SCALE_SMOOTH));
-			openProjectHashPanel = new JButton(icon);
+			openProjectHashPanel = new TwitterButton(icon);
 			openProjectHashPanel.setToolTipText("See tweets about the project");
 		} catch (IOException e) {
-			openProjectHashPanel = new JButton("project tweets");
+			openProjectHashPanel = new TwitterButton("project tweets");
 		}
 		openProjectHashPanel.addActionListener(new ProjectHashtagTimlinePanelCreator(twitter, this));
 		toolbar.add(openProjectHashPanel);
@@ -101,19 +100,5 @@ public class ClientUserPanel extends JPanel implements UserInfoPanelContainer {
 	
 	public void addComponent(String title, Component component) {
 		addComponent(title, null, component, "another tab");
-	}
-
-	public void addUserInfoPanel(String title, UserInfoPanel panel) {
-		JScrollPane pane = new JScrollPane(panel);
-//		pane.getVerticalScrollBar().setUI(new MyScrollBarUI());
-//		pane.getHorizontalScrollBar().setUI(new MyScrollBarUI());
-		
-		try {
-			BufferedImage image = ImageIO.read(getClass().getResource("images/user.png"));
-			ImageIcon icon = new ImageIcon(image.getScaledInstance(20, 20, Image.SCALE_SMOOTH));
-			addComponent(title, icon, pane, "some information about the user");
-		} catch (IOException e) {
-			addComponent(title, pane);
-		}
 	}
 }

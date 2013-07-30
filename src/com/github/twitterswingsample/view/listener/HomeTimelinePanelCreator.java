@@ -9,10 +9,10 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import com.github.twitterswingsample.view.TwitterButton;
 import com.github.twitterswingsample.view.listener.authorized.timelineloader.HomeTimelineLoader;
 import com.github.twitterswingsample.view.panels.ClientUserPanel;
 import com.github.twitterswingsample.view.panels.TimelinePanel;
@@ -39,7 +39,7 @@ public class HomeTimelinePanelCreator implements ActionListener {
 //		homeTimelineScrollPane.getHorizontalScrollBar().setUI(new MyScrollBarUI());
 		timelineTab.add(homeTimelineScrollPane, BorderLayout.CENTER);
 		
-		JButton reloadHomeTimeline = new JButton("load Home Timeline");
+		TwitterButton reloadHomeTimeline = new TwitterButton("load Home Timeline");
 		reloadHomeTimeline.addActionListener(new HomeTimelineLoader(homeTimeline, twitter));
 		timelineTab.add(reloadHomeTimeline, BorderLayout.SOUTH);
 		

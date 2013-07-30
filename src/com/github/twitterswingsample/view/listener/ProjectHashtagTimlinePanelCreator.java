@@ -9,12 +9,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import twitter4j.Twitter;
 
+import com.github.twitterswingsample.view.TwitterButton;
 import com.github.twitterswingsample.view.listener.authorized.timelineloader.ProjectHashtagTimelineLoader;
 import com.github.twitterswingsample.view.panels.ClientUserPanel;
 import com.github.twitterswingsample.view.panels.TimelinePanel;
@@ -38,7 +38,7 @@ public class ProjectHashtagTimlinePanelCreator implements ActionListener {
 //		timelineScrollPane.getHorizontalScrollBar().setUI(new MyScrollBarUI());
 		timelineTab.add(timelineScrollPane, BorderLayout.CENTER);
 		
-		JButton reloadTimeline = new JButton("load #T4JSS Tweets");
+		TwitterButton reloadTimeline = new TwitterButton("load #T4JSS Tweets");
 		reloadTimeline.addActionListener(new ProjectHashtagTimelineLoader(timeline, twitter));
 		timelineTab.add(reloadTimeline, BorderLayout.SOUTH);
 		

@@ -3,7 +3,6 @@ package com.github.twitterswingsample.view.panels;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -11,6 +10,7 @@ import javax.swing.text.JTextComponent;
 
 import twitter4j.Twitter;
 
+import com.github.twitterswingsample.view.TwitterButton;
 import com.github.twitterswingsample.view.listener.authorized.timelineloader.SearchListener;
 
 public class SearchPanel extends JPanel {
@@ -25,7 +25,7 @@ public class SearchPanel extends JPanel {
 		JPanel south = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		JTextComponent query = new JTextField(30);
 		south.add(query);
-		JButton send = new JButton("search");
+		TwitterButton send = new TwitterButton("search");
 		send.addActionListener(new SearchListener(timelinePanel, twitter, query));
 		south.add(send);
 		add(south, BorderLayout.SOUTH);

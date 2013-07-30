@@ -1,14 +1,21 @@
 package com.github.twitterswingsample.view.listener.authorized.statusbased;
 
+import java.awt.Image;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JScrollPane;
 
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.User;
 
+import com.github.twitterswingsample.view.panels.ClientUserPanel;
 import com.github.twitterswingsample.view.panels.ConsolePanel;
-import com.github.twitterswingsample.view.panels.UserInfoPanelContainer;
 import com.github.twitterswingsample.view.panels.UserInfoPanel;
 
 /**
@@ -18,27 +25,35 @@ import com.github.twitterswingsample.view.panels.UserInfoPanel;
  */
 public class UserInfoPanelCreator extends StatusMouseListener {
 
-	private UserInfoPanelContainer container;
+	private ClientUserPanel panel;
 	private boolean insideHomeTimeline;
 	
-	public UserInfoPanelCreator(Status status, Twitter twitter, UserInfoPanelContainer container, boolean insideHomeTimeline) {
+	public UserInfoPanelCreator(Status status, Twitter twitter, ClientUserPanel panel, boolean insideHomeTimeline) {
 		super(twitter);
 		setStatus(status);
-		this.container = container;
+		this.panel = panel;
 		this.insideHomeTimeline = insideHomeTimeline;
 	}
 
 	public void run() {
 		try {
 			User user = getStatus().getUser();
-			UserInfoPanel panel;
+			UserInfoPanel infoPanel;
 			if (insideHomeTimeline) {
-				panel = new UserInfoPanel(getTwitter(), user, true);
+				infoPanel = new UserInfoPanel(getTwitter(), user, panel, true);
 			}
 			else {
-				panel = new UserInfoPanel(getTwitter(), user);
+				infoPanel = new UserInfoPanel(getTwitter(), user, panel);
 			}
-			container.addUserInfoPanel("@" + user.getScreenName(), panel);
+			
+			JScrollPane pane = new JScrollPane(infoPanel);
+			try {
+				BufferedImage image = ImageIO.read(getClass().getResource("images/user.png"));
+				ImageIcon icon = new ImageIcon(image.getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+				panel.addComponent("@" + user.getScreenName(), icon, pane, "some information about the user");
+			} catch (IOException e) {
+				panel.addComponent("@" + user.getScreenName(), pane);
+			}
 		} catch (TwitterException e) {
 			ConsolePanel.getInstance().printMessage(new String[]{
 				"Could not create user information",

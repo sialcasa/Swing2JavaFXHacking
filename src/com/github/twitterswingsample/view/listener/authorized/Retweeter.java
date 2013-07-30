@@ -1,11 +1,10 @@
 package com.github.twitterswingsample.view.listener.authorized;
 
-import javax.swing.JButton;
-
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
+import com.github.twitterswingsample.view.TwitterButton;
 import com.github.twitterswingsample.view.panels.ConsolePanel;
 
 /**
@@ -15,7 +14,7 @@ import com.github.twitterswingsample.view.panels.ConsolePanel;
  */
 public class Retweeter extends AuthorizedAction{
 
-	private JButton btn;
+	private TwitterButton btn;
 	private Status status;
 	
 	/**
@@ -25,7 +24,7 @@ public class Retweeter extends AuthorizedAction{
 	 * @param twitter 
 	 * @param status to be retweeted
 	 */
-	public Retweeter(JButton btn, Twitter twitter, Status status) {
+	public Retweeter(TwitterButton btn, Twitter twitter, Status status) {
 		super(twitter);
 		this.btn = btn;
 		this.status = status;
