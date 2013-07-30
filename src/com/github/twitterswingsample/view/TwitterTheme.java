@@ -71,23 +71,23 @@ public class TwitterTheme extends DefaultMetalTheme {
 	}
 	
 	public ColorUIResource getMenuBackground() {
-		return super.getMenuBackground();
+		return new ColorUIResource(200, 200, 255);
 	}
 	
 	public ColorUIResource getMenuDisabledForeground() {
-		return super.getMenuDisabledForeground();
+		return new ColorUIResource(super.getMenuDisabledForeground().darker());
 	}
 	
 	public ColorUIResource getMenuForeground() {
-		return super.getMenuForeground();
+		return new ColorUIResource(super.getMenuForeground());
 	}
 	
 	public ColorUIResource getMenuSelectedBackground() {
-		return super.getMenuSelectedBackground();
+		return new ColorUIResource(getMenuBackground().darker());
 	}
 	
 	public ColorUIResource getMenuSelectedForeground() {
-		return super.getMenuSelectedForeground();
+		return new ColorUIResource(super.getMenuSelectedForeground().darker());
 	}
 	
 	public FontUIResource getMenuTextFont() {
@@ -107,7 +107,7 @@ public class TwitterTheme extends DefaultMetalTheme {
 	}
 	
 	protected ColorUIResource getPrimary3() {
-		return new ColorUIResource(150, 150, 255);
+		return new ColorUIResource(180, 180, 255);
 	}
 	
 	public ColorUIResource getPrimaryControl() {
@@ -139,7 +139,7 @@ public class TwitterTheme extends DefaultMetalTheme {
 	}
 	
 	protected ColorUIResource getSecondary3() {
-		return new ColorUIResource(180, 180, 255);
+		return new ColorUIResource(210, 210, 255);
 	}
 	
 	public ColorUIResource getSeparatorBackground() {
@@ -175,11 +175,11 @@ public class TwitterTheme extends DefaultMetalTheme {
 	}
 	
 	public ColorUIResource getWindowBackground() {
-		return super.getWindowBackground();
+		return new ColorUIResource(super.getWindowBackground().brighter());
 	}
 	
 	public ColorUIResource getWindowTitleBackground() {
-		return super.getWindowTitleBackground();
+		return new ColorUIResource(super.getWindowTitleBackground().brighter());
 	}
 	
 	public FontUIResource getWindowTitleFont() {
@@ -187,15 +187,15 @@ public class TwitterTheme extends DefaultMetalTheme {
 	}
 	
 	public ColorUIResource getWindowTitleForeground() {
-		return super.getWindowTitleForeground();
+		return new ColorUIResource(super.getWindowTitleForeground().brighter());
 	}
 	
 	public ColorUIResource getWindowTitleInactiveBackground() {
-		return super.getWindowTitleInactiveBackground();
+		return new ColorUIResource(super.getWindowTitleInactiveBackground().brighter());
 	}
 	
 	public ColorUIResource getWindowTitleInactiveForeground() {
-		return super.getWindowTitleInactiveForeground();
+		return new ColorUIResource(super.getWindowTitleInactiveForeground().brighter());
 	}
 	
 	protected ColorUIResource getBlack() {

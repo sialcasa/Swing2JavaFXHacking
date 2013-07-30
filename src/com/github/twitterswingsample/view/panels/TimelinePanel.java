@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.Scrollable;
 
 import twitter4j.Status;
@@ -60,9 +61,15 @@ public class TimelinePanel extends JPanel implements Scrollable {
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.insets = new Insets(3, 0, 3, 0);
 		if(statusPanelList.size() > 0) {
-			for (int i = 0; i < statusPanelList.size(); i++) {
-				gbc.gridy = i + 1;
-				add(statusPanelList.get(i), gbc);
+			gbc.gridy = 0;
+			add(statusPanelList.get(0), gbc);
+			if(statusPanelList.size() > 1) {
+				for (int i = 1; i < statusPanelList.size(); i++) {
+					gbc.gridy++;
+					add(new JSeparator(JSeparator.HORIZONTAL), gbc);
+					gbc.gridy++;
+					add(statusPanelList.get(i), gbc);
+				}
 			}
 		}
 		else {
