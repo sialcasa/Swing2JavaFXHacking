@@ -1,8 +1,6 @@
 package com.github.twitterswingsample.view.panels;
 
-import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -14,12 +12,12 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.github.twitterswingsample.view.TextHighlighter;
+import com.github.twitterswingsample.view.TwitterButton;
 import com.github.twitterswingsample.view.listener.ShortInfoTexter;
 import com.github.twitterswingsample.view.listener.StatusHyperlinkListener;
 import com.github.twitterswingsample.view.listener.authorized.Retweeter;
@@ -39,12 +37,9 @@ public class StatusPanel extends JPanel{
 	private JLabel profileImage;
 	private Status status;
 	
-	public StatusPanel(Twitter twitter, Status status, ClientUserPanel cuPanel, boolean homeTimeline) {
+	public StatusPanel(Twitter twitter, Status status, ClientUserPanel cuPanel, boolean isHomeTimeline) {
 		this.status = status;
-		int fontSize = 13;
-		Font font = new Font("Arial", Font.BOLD, fontSize);
 		setLayout(new GridBagLayout());
-		setBackground(Color.LIGHT_GRAY);
 		
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(3, 3, 3, 3);
@@ -55,7 +50,7 @@ public class StatusPanel extends JPanel{
 			gbc.gridheight = 5;
 			profileImage = new JLabel(new ImageIcon(new URL(user.getBiggerProfileImageURL())));
 			profileImage.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			profileImage.addMouseListener(new UserInfoPanelCreator(status, twitter, cuPanel, homeTimeline));
+			profileImage.addMouseListener(new UserInfoPanelCreator(status, twitter, cuPanel, isHomeTimeline));
 			profileImage.addMouseListener(new ShortInfoTexter("Show some information about the user"));
 			add(profileImage, gbc);
 		} catch (MalformedURLException e) {
@@ -66,7 +61,6 @@ public class StatusPanel extends JPanel{
 		gbc.gridwidth = 5;
 		gbc.gridx = 1;
 		JLabel screenName = new JLabel("@" + user.getScreenName());
-		screenName.setFont(font);
 		add(screenName, gbc);
 		
 		/* Edit the text of the tweet and insert it into the StatusPanel */
@@ -76,29 +70,23 @@ public class StatusPanel extends JPanel{
 		tweetText.setText("<font style='font-family: Arial; color: #000000'>"
 				+ TextHighlighter.highlightAll(status.getText()) + "</font>");
 		tweetText.setEditable(false);
-        tweetText.setBackground(Color.LIGHT_GRAY);
         tweetText.addHyperlinkListener(new StatusHyperlinkListener());
         add(tweetText, gbc);
 
 		gbc.gridy = 2;
 		JLabel created = new JLabel(status.getCreatedAt() + "");
-		created.setFont(font);
 		add(created, gbc);
 
 		gbc.gridy = 4;
-		JButton retweetBtn = new JButton("retweet");
-		retweetBtn.setBorderPainted(false);
-		retweetBtn.setFont(font);
-		retweetBtn.setBackground(new Color(120,172,237));
+		TwitterButton retweetBtn = new TwitterButton("retweet");
 		Retweeter retweeter = new Retweeter(retweetBtn, twitter, status);
 		retweetBtn.addActionListener(retweeter);
+		int imgSize = 17;
 		try {
 			BufferedImage image = ImageIO.read(getClass().getResource("images/retweet.png"));
-			ImageIcon icon = new ImageIcon(image.getScaledInstance(fontSize + 5, fontSize + 5, Image.SCALE_SMOOTH));
+			ImageIcon icon = new ImageIcon(image.getScaledInstance(imgSize, imgSize, Image.SCALE_SMOOTH));
 			retweetBtn.setIcon(icon);
-		} catch (IOException e) {
-			retweetBtn.setBackground(new Color(0,172,237));
-		}
+		} catch (IOException e) {}
 		if(status.isRetweetedByMe()){
 			retweetBtn.setEnabled(false);
 		}
@@ -110,7 +98,7 @@ public class StatusPanel extends JPanel{
 			JLabel retweeted = new JLabel();
 			try {
 				BufferedImage image = ImageIO.read(getClass().getResource("images/retweeted.png"));
-				ImageIcon icon = new ImageIcon(image.getScaledInstance(fontSize + 5, fontSize + 5, Image.SCALE_SMOOTH));
+				ImageIcon icon = new ImageIcon(image.getScaledInstance(imgSize, imgSize, Image.SCALE_SMOOTH));
 				retweeted.setIcon(icon);
 				retweeted.setToolTipText("Retweeted");
 				retweeted.setText(status.getRetweetCount() + "x");

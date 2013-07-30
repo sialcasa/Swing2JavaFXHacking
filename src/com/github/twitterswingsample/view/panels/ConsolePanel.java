@@ -1,7 +1,6 @@
 package com.github.twitterswingsample.view.panels;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.TextArea;
 import java.util.Date;
 
@@ -30,7 +29,6 @@ public class ConsolePanel extends JPanel{
 		
 		area = new TextArea(2, 0);
 		area.setEditable(false);
-		area.setBackground(Color.WHITE);
 		area.setText("Welcome to Twitter4J Swing Sample" +
 				"\nby multiprogger" +
 				"\nhosted on GitHub: http://multiprogger.github.com/twitter4j-swing-sample/");

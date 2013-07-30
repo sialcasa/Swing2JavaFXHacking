@@ -21,13 +21,13 @@ public class StatusHyperlinkListener implements HyperlinkListener {
 			    try {
 					Desktop.getDesktop().browse(e.getURL().toURI());
 				} catch (IOException e1) {
-					new ErrorMessageFrame("Unable to open Link");
+					new ErrorMessageFrame("Unable to open Link").setVisible(true);
 				} catch (URISyntaxException e1) {
-					new ErrorMessageFrame("Faulty URL");
+					new ErrorMessageFrame("Faulty URL").setVisible(true);
 				}
 			}
 			else {
-				new ErrorMessageFrame("Functionality not supported");
+				new ErrorMessageFrame("Functionality not supported").setVisible(true);
 			}
 		}
 		else if(e.getEventType() == HyperlinkEvent.EventType.EXITED){
