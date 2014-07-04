@@ -10,7 +10,7 @@ import twitter4j.User;
 /**
  * ActionListener that follows another user
  * 
- * @author multiprogger
+ * @author sourcefranke
  */
 public class Follower extends AuthorizedAction{
 

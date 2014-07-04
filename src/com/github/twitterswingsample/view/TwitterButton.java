@@ -2,7 +2,6 @@ package com.github.twitterswingsample.view;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Insets;
 
 import javax.swing.Action;
 import javax.swing.BorderFactory;

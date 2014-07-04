@@ -10,7 +10,7 @@ import com.github.twitterswingsample.view.panels.ConsolePanel;
 /**
  * ActionListener that retweets a status
  * 
- * @author multiprogger
+ * @author sourcefranke
  */
 public class Retweeter extends AuthorizedAction{
 

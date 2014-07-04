@@ -16,7 +16,7 @@ import twitter4j.Twitter;
 /**
  * Panel for writing statuses
  * 
- * @author multiprogger
+ * @author sourcefranke
  */
 public class StatusWritePanel extends JPanel{
 

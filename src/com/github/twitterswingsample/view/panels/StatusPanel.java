@@ -30,7 +30,7 @@ import twitter4j.User;
 /**
  * Panel displaying one status
  * 
- * @author multiprogger
+ * @author sourcefranke
  */
 public class StatusPanel extends JPanel{
 

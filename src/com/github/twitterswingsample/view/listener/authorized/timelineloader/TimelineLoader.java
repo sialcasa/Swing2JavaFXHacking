@@ -8,7 +8,7 @@ import com.github.twitterswingsample.view.panels.TimelinePanel;
 /**
  * Abstract ActionListener that loads a timeline
  * 
- * @author multiprogger
+ * @author sourcefranke
  */
 public abstract class TimelineLoader extends AuthorizedAction {
 

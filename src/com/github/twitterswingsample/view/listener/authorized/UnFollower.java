@@ -10,7 +10,7 @@ import twitter4j.User;
 /**
  * ActionListener that unfollows another user
  * 
- * @author multiprogger
+ * @author sourcefranke
  */
 public class UnFollower extends AuthorizedAction{
 

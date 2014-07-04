@@ -6,7 +6,7 @@ import com.github.twitterswingsample.view.listener.MultithreadingListener;
 /**
  * Abstract ActionListener for server requests that need to be authorized
  * 
- * @author multiprogger
+ * @author sourcefranke
  */
 public abstract class AuthorizedAction extends MultithreadingListener{
 	
