@@ -19,7 +19,7 @@ import twitter4j.Twitter;
 /**
  * Panel containing several {@link StatusPanel}
  * 
- * @author multiprogger
+ * @author sourcefranke
  */
 public class TimelinePanel extends JPanel implements Scrollable {
 	

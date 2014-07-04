@@ -9,7 +9,7 @@ import com.github.twitterswingsample.view.panels.TimelinePanel;
 /**
  * ActionListener that loads the home timeline
  * 
- * @author multiprogger
+ * @author sourcefranke
  */
 public class HomeTimelineLoader extends TimelineLoader{
 	

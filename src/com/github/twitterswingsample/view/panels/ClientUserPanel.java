@@ -25,7 +25,7 @@ import com.github.twitterswingsample.view.listener.TabPopupMenuOpener;
 /**
  * Panel containing all the content for one user
  * 
- * @author multiprogger
+ * @author sourcefranke
  */
 public class ClientUserPanel extends JPanel {
 	

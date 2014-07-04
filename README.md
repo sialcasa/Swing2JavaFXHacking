@@ -1,27 +1,24 @@
-# twitter4j-swing-sample #
+# twitter4j-swing-sample
 
 A desktop client for Twitter.
 
-## Intention ##
+## Intention
 
 The goal is to write a desktop client that includes all functionalities the **Twitter API v1.1** offers.  
-Furthermore it should look as pretty as it's possible using **Java Swing**.
+Furthermore it should look as pretty as it's possible using **Java Swing**. ;)
 
-## Login ##
+## How to login with your Twitter account
+You have to generate your own OAuth tokens on [https://dev.twitter.com](https://dev.twitter.com "developers' page").
 
-### Where to enter my Password? ###
-Insert your credentials (consumer key, consumer secret, access token, access token secret) into the 'login.xml' file you have to drop right beside your project.  
-You can insert credentials of multiple accounts and then choose them at runtime and switch between them.
+1. log in
+2. click on *My applications* in the drop down menu under your icon
+3. click on *Create New App* complete the form
+4. After that click on your new created application
+5. at tab **Permissions** choose *Read, Write and Access direct messages* and confirm
+6. at tab **API Keys** click on *generate my access token*
 
-### Where to look for them? ###
-You generate them on the [Developers site of Twitter] (https://dev.twitter.com "The information site of Twitter for developers").  
-<ol>
-  <li>log in</li>
-  <li>create a new application (see "My Applications")</li>
-  <li>set the access to "Read, Write and Access direct messages" (don't forget to save your settings!)</li>
-  <li>[re]create your access token and insert all the four strings into the 'login.xml' file</li>
-</ol>
+Now you can start your client and insert the four strings into the Login dialog.
 
-## Technical Details ##
-
-**Framework used:** Twitter4J v3.0.3
+## Technical Details
++ **Library:** Twitter4J v4.0.2
++ **Database:** SQLite (driver: sqlite-jdbc-3.7.2.jar)

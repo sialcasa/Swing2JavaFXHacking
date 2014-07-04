@@ -28,7 +28,7 @@ import twitter4j.User;
 /**
  * Panel displaying some information about an single user
  * 
- * @author multiprogger
+ * @author sourcefranke
  */
 public class UserInfoPanel extends JPanel{
 	

@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 /**
  * ActionListener that terminates the program
  * 
- * @author multiprogger
+ * @author sourcefranke
  */
 public class ProgramCloser implements ActionListener{
 

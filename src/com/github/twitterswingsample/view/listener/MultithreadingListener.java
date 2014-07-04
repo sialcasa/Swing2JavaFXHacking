@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
  * Abstract ActionListener that starts a new thread
  * (to be used for server requests)
  * 
- * @author multiprogger
+ * @author sourcefranke
  */
 public abstract class MultithreadingListener implements ActionListener, Runnable {
 

@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 /**
  * Panel that show short info messages.
  * 
- * @author multiprogger
+ * @author sourcefranke
  */
 public class ShortInfoPanel extends JPanel {
 

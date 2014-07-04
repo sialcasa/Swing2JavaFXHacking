@@ -21,7 +21,7 @@ import com.github.twitterswingsample.view.panels.UserInfoPanel;
 /**
  * MouseListener that creates a frame with {@link UserInfoPanel} in it
  * 
- * @author multiprogger
+ * @author sourcefranke
  */
 public class UserInfoPanelCreator extends StatusMouseListener {
 
