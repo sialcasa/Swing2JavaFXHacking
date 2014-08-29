@@ -1,16 +1,7 @@
-*.class
-
-# Folders #
-bin/*
-
-# Package Files #
-# *.jar #
-*.war
-*.ear
 /bin/
-
-# eclipse project files #
+/target/
 .classpath
 .project
+.settings
 
 t4jss.db
