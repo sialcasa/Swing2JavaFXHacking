@@ -5,18 +5,13 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import com.github.twitterswingsample.view.frames.MainFrame;
 import com.github.twitterswingsample.view.listener.AddAccountListenerFX;
 
-public class LoginDataDialogFX extends Stage implements LoginDataDialogInterface {
-
-    @FXML
-    private VBox root;
+public class LoginDataDialogFX extends VBox implements LoginDataDialogInterface {
 
     @FXML
     private TextField apiKeyTextField;
@@ -36,17 +31,18 @@ public class LoginDataDialogFX extends Stage implements LoginDataDialogInterface
     private MainFrame frame;
 
     public LoginDataDialogFX() {
+        loadFxml();
+    }
+
+    private void loadFxml() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LoginDataDialogFX.fxml"));
         fxmlLoader.setController(this);
+        fxmlLoader.setRoot(this);
         try {
             fxmlLoader.load();
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-    }
-
-    public void initialize() {
-        this.setScene(new Scene(root));
     }
 
     @FXML

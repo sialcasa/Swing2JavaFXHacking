@@ -28,7 +28,6 @@ public class AddAccountListenerFX implements EventHandler<ActionEvent> {
                     ldd.getAccessTokenSecret());
             frame.addUser(creds, id);
             ConsolePanelFX.getInstance().printMessage(new String[] { "Account successfully added" });
-            ldd.close();
         } catch (ClassNotFoundException | SQLException e1) {
             ConsolePanelFX.getInstance().printMessage(
                     new String[] { "SQL Exception thrown, there is an incorrect SQL statement",

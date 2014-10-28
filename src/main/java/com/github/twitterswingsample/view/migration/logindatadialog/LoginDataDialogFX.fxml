@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane>
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" />
+          <ColumnConstraints hgrow="SOMETIMES" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Name" />
+            <Label text="API Key" GridPane.rowIndex="1" />
+            <Label text="API Secret" GridPane.rowIndex="2" />
+            <Label text="Access Token" GridPane.rowIndex="3" />
+            <Label text="Access Token Secret" GridPane.rowIndex="4" />
+            <TextField fx:id="nameTextField" GridPane.columnIndex="1" />
+            <TextField fx:id="apiKeyTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="apiSecretTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="accessTokenTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="accessTokenSecretTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
+      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addButtonPressed" text="Add Account" />
+   </children>
+</fx:root>
