@@ -143,8 +143,8 @@ public class MainFrame extends JFrame {
         }
 
         JFXPanel verticalWrapper = new JFXPanel();
-        verticalWrapper.setFocusable(false);
         // WORKAROUND: https://javafx-jira.kenai.com/browse/RT-39196
+        verticalWrapper.setFocusable(false);
         Platform.runLater(() -> {
             verticalWrapper.setScene(new Scene(vertical));
         });
