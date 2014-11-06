@@ -21,6 +21,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.MetalLookAndFeel;
@@ -106,9 +107,11 @@ public class MainFrame extends JFrame {
         Platform.runLater(() -> {
             Scene scene = new Scene(ConsolePanel.getInstance());
             jfxPanel.setScene(scene);
+            SwingUtilities.invokeLater(() -> {
+                vertical.setBottomComponent(jfxPanel);
+            });
         });
 
-        vertical.setBottomComponent(jfxPanel);
         vertical.setResizeWeight(1.);
         vertical.setOneTouchExpandable(true);
 
