@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import com.github.twitterswingsample.model.Credentials;
-import com.github.twitterswingsample.view.panels.ConsolePanel;
+import com.github.twitterswingsample.view.migration.console.ConsolePanel;
 
 public class RemoveAccountListener implements ActionListener {
 

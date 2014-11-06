@@ -7,7 +7,7 @@ import javafx.event.EventHandler;
 
 import com.github.twitterswingsample.model.Credentials;
 import com.github.twitterswingsample.view.frames.MainFrame;
-import com.github.twitterswingsample.view.migration.console.ConsolePanelFX;
+import com.github.twitterswingsample.view.migration.console.ConsolePanel;
 import com.github.twitterswingsample.view.migration.logindatadialog.LoginDataDialogFX;
 
 public class AddAccountListenerFX implements EventHandler<ActionEvent> {
@@ -27,9 +27,9 @@ public class AddAccountListenerFX implements EventHandler<ActionEvent> {
             int id = creds.addUser(ldd.getName(), ldd.getAPIKey(), ldd.getAPISecret(), ldd.getAccessToken(),
                     ldd.getAccessTokenSecret());
             frame.addUser(creds, id);
-            ConsolePanelFX.getInstance().printMessage(new String[] { "Account successfully added" });
+            ConsolePanel.getInstance().printMessage(new String[] { "Account successfully added" });
         } catch (ClassNotFoundException | SQLException e1) {
-            ConsolePanelFX.getInstance().printMessage(
+            ConsolePanel.getInstance().printMessage(
                     new String[] { "SQL Exception thrown, there is an incorrect SQL statement",
                             "Please report that bug!", e1.getLocalizedMessage() });
         }

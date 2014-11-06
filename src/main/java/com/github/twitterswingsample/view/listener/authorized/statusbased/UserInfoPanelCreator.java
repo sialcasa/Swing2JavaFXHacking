@@ -14,8 +14,8 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.User;
 
+import com.github.twitterswingsample.view.migration.console.ConsolePanel;
 import com.github.twitterswingsample.view.panels.ClientUserPanel;
-import com.github.twitterswingsample.view.panels.ConsolePanel;
 import com.github.twitterswingsample.view.panels.UserInfoPanel;
 
 /**

@@ -2,7 +2,7 @@ package com.github.twitterswingsample.view.listener.authorized;
 
 import java.util.Date;
 
-import com.github.twitterswingsample.view.panels.ConsolePanel;
+import com.github.twitterswingsample.view.migration.console.ConsolePanel;
 import com.github.twitterswingsample.view.panels.MessageWritePanel;
 
 import twitter4j.Twitter;

@@ -20,6 +20,7 @@ import com.github.twitterswingsample.view.TwitterButton;
 import com.github.twitterswingsample.view.listener.MessageWritePanelCreator;
 import com.github.twitterswingsample.view.listener.authorized.Follower;
 import com.github.twitterswingsample.view.listener.authorized.UnFollower;
+import com.github.twitterswingsample.view.migration.console.ConsolePanel;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;

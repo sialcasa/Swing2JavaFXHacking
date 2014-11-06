@@ -22,6 +22,7 @@ import com.github.twitterswingsample.view.listener.ShortInfoTexter;
 import com.github.twitterswingsample.view.listener.StatusHyperlinkListener;
 import com.github.twitterswingsample.view.listener.authorized.Retweeter;
 import com.github.twitterswingsample.view.listener.authorized.statusbased.UserInfoPanelCreator;
+import com.github.twitterswingsample.view.migration.console.ConsolePanel;
 
 import twitter4j.Status;
 import twitter4j.Twitter;

@@ -26,16 +26,18 @@ public class LoginDialogCreator implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         JFXPanel loginWrapper = new JFXPanel();
+        JDialog dialog = new JDialog((JFrame) frame.getParent());
+        dialog.setModal(true);
+        dialog.add(loginWrapper);
 
-        LoginDataDialogFX loginDataDialogFX = new LoginDataDialogFX();
-        loginDataDialogFX.setFrame(frame);
+        LoginDataDialogFX loginDataDialogFX = new LoginDataDialogFX(frame, dialog);
 
         Platform.runLater(() -> {
             loginWrapper.setScene(new Scene(loginDataDialogFX));
-            JDialog modalWrapper = new JDialog((JFrame) frame.getParent());
-            modalWrapper.setModal(true);
-            modalWrapper.add(loginWrapper);
-            SwingUtilities.invokeLater(() -> modalWrapper.setVisible(true));
+            SwingUtilities.invokeLater(() -> {
+                dialog.pack();
+                dialog.setVisible(true);
+            });
         });
     }
 }

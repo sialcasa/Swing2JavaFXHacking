@@ -2,7 +2,7 @@ package com.github.twitterswingsample.view.listener.authorized.timelineloader;
 
 import javax.swing.text.JTextComponent;
 
-import com.github.twitterswingsample.view.panels.ConsolePanel;
+import com.github.twitterswingsample.view.migration.console.ConsolePanel;
 import com.github.twitterswingsample.view.panels.TimelinePanel;
 
 import twitter4j.Query;

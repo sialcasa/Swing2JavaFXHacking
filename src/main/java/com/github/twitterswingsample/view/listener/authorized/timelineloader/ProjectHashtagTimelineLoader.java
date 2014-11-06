@@ -4,7 +4,7 @@ import twitter4j.Query;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
-import com.github.twitterswingsample.view.panels.ConsolePanel;
+import com.github.twitterswingsample.view.migration.console.ConsolePanel;
 import com.github.twitterswingsample.view.panels.TimelinePanel;
 
 public class ProjectHashtagTimelineLoader extends TimelineLoader{

@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
+import javax.swing.JDialog;
+
 import com.github.twitterswingsample.view.frames.MainFrame;
 import com.github.twitterswingsample.view.listener.AddAccountListenerFX;
 
@@ -28,9 +30,13 @@ public class LoginDataDialogFX extends VBox implements LoginDataDialogInterface 
     @FXML
     private TextField apiSecretTextField;
 
-    private MainFrame frame;
+    private final MainFrame frame;
 
-    public LoginDataDialogFX() {
+    private final JDialog dialog;
+
+    public LoginDataDialogFX(MainFrame frame, JDialog dialog) {
+        this.frame = frame;
+        this.dialog = dialog;
         loadFxml();
     }
 
@@ -47,7 +53,8 @@ public class LoginDataDialogFX extends VBox implements LoginDataDialogInterface 
 
     @FXML
     void addButtonPressed(ActionEvent event) {
-        new AddAccountListenerFX(getFrame(), this).handle(event);
+        dialog.dispose();
+        new AddAccountListenerFX(frame, this).handle(event);
     }
 
     @Override
@@ -73,14 +80,6 @@ public class LoginDataDialogFX extends VBox implements LoginDataDialogInterface 
     @Override
     public String getAccessTokenSecret() {
         return accessTokenSecretTextField.getText();
-    }
-
-    public MainFrame getFrame() {
-        return frame;
-    }
-
-    public void setFrame(MainFrame frame) {
-        this.frame = frame;
     }
 
 }

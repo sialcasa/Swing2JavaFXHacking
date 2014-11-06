@@ -10,10 +10,7 @@ import java.util.Properties;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
-import javafx.embed.swing.SwingNode;
-import javafx.geometry.Orientation;
 import javafx.scene.Scene;
-import javafx.scene.control.SplitPane;
 
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
@@ -23,6 +20,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.MetalLookAndFeel;
@@ -35,9 +33,8 @@ import com.github.twitterswingsample.view.listener.LoginDialogCreator;
 import com.github.twitterswingsample.view.listener.ProgramCloser;
 import com.github.twitterswingsample.view.listener.RemoveAccountListener;
 import com.github.twitterswingsample.view.listener.SwitchAccountListener;
-import com.github.twitterswingsample.view.migration.console.ConsolePanelFX;
+import com.github.twitterswingsample.view.migration.console.ConsolePanel;
 import com.github.twitterswingsample.view.panels.ClientUserPanel;
-import com.github.twitterswingsample.view.panels.ConsolePanel;
 import com.github.twitterswingsample.view.panels.ShortInfoPanel;
 
 /**
@@ -103,12 +100,17 @@ public class MainFrame extends JFrame {
         } catch (IOException e) {
         }
 
-        // JSplitPane vertical = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        JSplitPane vertical = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 
-        SplitPane vertical = new SplitPane();
-        vertical.setOrientation(Orientation.VERTICAL);
+        JFXPanel jfxPanel = new JFXPanel();
+        Platform.runLater(() -> {
+            Scene scene = new Scene(ConsolePanel.getInstance());
+            jfxPanel.setScene(scene);
+        });
 
-        vertical.getItems().add(ConsolePanelFX.getInstance());
+        vertical.setBottomComponent(jfxPanel);
+        vertical.setResizeWeight(1.);
+        vertical.setOneTouchExpandable(true);
 
         try {
             Credentials creds = new Credentials();
@@ -126,11 +128,7 @@ public class MainFrame extends JFrame {
             if (group.getButtonCount() > 0) {
                 group.getElements().nextElement().setSelected(true);
             }
-
-            SwingNode cardPanelWrapper = new SwingNode();
-            cardPanelWrapper.setContent(cardPanel);
-            Platform.runLater(() -> vertical.getItems().add(0, cardPanelWrapper));
-
+            vertical.setTopComponent(cardPanel);
         } catch (SQLException e) {
             ConsolePanel.getInstance().printMessage(
                     new String[] { "SQL Exception thrown, there is an incorrect SQL statement",
@@ -144,12 +142,7 @@ public class MainFrame extends JFrame {
                     new String[] { "Unspecified Error", "Please report that bug!", e.getLocalizedMessage() });
         }
 
-        JFXPanel verticalWrapper = new JFXPanel();
-        Platform.runLater(() -> {
-            verticalWrapper.setScene(new Scene(vertical));
-        });
-
-        add(verticalWrapper, BorderLayout.CENTER);
+        add(vertical, BorderLayout.CENTER);
         add(ShortInfoPanel.getInstance(), BorderLayout.SOUTH);
     }
 
@@ -176,7 +169,6 @@ public class MainFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-        new JFXPanel();
         new MainFrame().setVisible(true);
     }
 }

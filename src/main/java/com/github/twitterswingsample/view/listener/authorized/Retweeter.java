@@ -5,7 +5,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
 import com.github.twitterswingsample.view.TwitterButton;
-import com.github.twitterswingsample.view.panels.ConsolePanel;
+import com.github.twitterswingsample.view.migration.console.ConsolePanel;
 
 /**
  * ActionListener that retweets a status

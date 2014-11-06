@@ -1,6 +1,6 @@
 package com.github.twitterswingsample.view.listener.authorized;
 
-import com.github.twitterswingsample.view.panels.ConsolePanel;
+import com.github.twitterswingsample.view.migration.console.ConsolePanel;
 import com.github.twitterswingsample.view.panels.UserInfoPanel;
 
 import twitter4j.Twitter;
