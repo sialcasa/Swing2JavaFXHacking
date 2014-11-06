@@ -8,6 +8,7 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import com.github.twitterswingsample.view.frames.MainFrame;
@@ -31,7 +32,7 @@ public class LoginDialogCreator implements ActionListener {
 
         Platform.runLater(() -> {
             loginWrapper.setScene(new Scene(loginDataDialogFX));
-            JDialog modalWrapper = new JDialog(frame);
+            JDialog modalWrapper = new JDialog((JFrame) frame.getParent());
             modalWrapper.setModal(true);
             modalWrapper.add(loginWrapper);
             SwingUtilities.invokeLater(() -> modalWrapper.setVisible(true));

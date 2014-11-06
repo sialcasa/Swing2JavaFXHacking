@@ -144,12 +144,12 @@ public class MainFrame extends JFrame {
                     new String[] { "Unspecified Error", "Please report that bug!", e.getLocalizedMessage() });
         }
 
+        JFXPanel verticalWrapper = new JFXPanel();
         Platform.runLater(() -> {
-            JFXPanel verticalWrapper = new JFXPanel();
             verticalWrapper.setScene(new Scene(vertical));
-            add(verticalWrapper, BorderLayout.CENTER);
         });
 
+        add(verticalWrapper, BorderLayout.CENTER);
         add(ShortInfoPanel.getInstance(), BorderLayout.SOUTH);
     }
 
