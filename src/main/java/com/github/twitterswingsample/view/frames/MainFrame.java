@@ -10,7 +10,10 @@ import java.util.Properties;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
+import javafx.embed.swing.SwingNode;
+import javafx.geometry.Orientation;
 import javafx.scene.Scene;
+import javafx.scene.control.SplitPane;
 
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
@@ -20,8 +23,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.MetalLookAndFeel;
@@ -101,19 +102,11 @@ public class MainFrame extends JFrame {
         } catch (IOException e) {
         }
 
-        JSplitPane vertical = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        // JSplitPane vertical = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 
-        JFXPanel jfxPanel = new JFXPanel();
-        Platform.runLater(() -> {
-            Scene scene = new Scene(ConsolePanel.getInstance());
-            jfxPanel.setScene(scene);
-            SwingUtilities.invokeLater(() -> {
-                vertical.setBottomComponent(jfxPanel);
-            });
-        });
-
-        vertical.setResizeWeight(1.);
-        vertical.setOneTouchExpandable(true);
+        SplitPane vertical = new SplitPane();
+        vertical.setOrientation(Orientation.VERTICAL);
+        vertical.getItems().add(ConsolePanel.getInstance());
 
         try {
             Credentials creds = new Credentials();
@@ -131,7 +124,11 @@ public class MainFrame extends JFrame {
             if (group.getButtonCount() > 0) {
                 group.getElements().nextElement().setSelected(true);
             }
-            vertical.setTopComponent(cardPanel);
+
+            SwingNode cardPanelWrapper = new SwingNode();
+            cardPanelWrapper.setContent(cardPanel);
+            Platform.runLater(() -> vertical.getItems().add(0, cardPanelWrapper));
+
         } catch (SQLException e) {
             ConsolePanel.getInstance().printMessage(
                     new String[] { "SQL Exception thrown, there is an incorrect SQL statement",
@@ -145,7 +142,14 @@ public class MainFrame extends JFrame {
                     new String[] { "Unspecified Error", "Please report that bug!", e.getLocalizedMessage() });
         }
 
-        add(vertical, BorderLayout.CENTER);
+        JFXPanel verticalWrapper = new JFXPanel();
+        verticalWrapper.setFocusable(false);
+        // WORKAROUND: https://javafx-jira.kenai.com/browse/RT-39196
+        Platform.runLater(() -> {
+            verticalWrapper.setScene(new Scene(vertical));
+        });
+
+        add(verticalWrapper, BorderLayout.CENTER);
         add(ShortInfoPanel.getInstance(), BorderLayout.SOUTH);
     }
 
@@ -172,6 +176,7 @@ public class MainFrame extends JFrame {
     }
 
     public static void main(String[] args) {
+        new JFXPanel();
         new MainFrame().setVisible(true);
     }
 }
