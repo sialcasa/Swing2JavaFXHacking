@@ -1,3 +1,6 @@
+Swing -> JavaFX example. Take a look into the 'migration' package. 
+
+
 # twitter4j-swing-sample
 
 A desktop client for Twitter.
