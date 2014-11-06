@@ -1,4 +1,5 @@
-Swing -> JavaFX example. Take a look into the 'migration' package. 
+- Swing -> JavaFX example. Take a look into the 'migration' package.
+- Screencast is coming soon
 
 
 # twitter4j-swing-sample
