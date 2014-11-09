@@ -1,6 +1,13 @@
-- Swing -> JavaFX example. Take a look into the 'migration' package.
-- Screencast is coming soon
+##This fork of Swing application, gives you an impression, which technical possabilities you have, when you migrate Swing to JavaFX. You find more details and a tutorial in the screencast below.##
 
+If you have further questions or migration support requests, just give me a ping (alexander.casall@saxsys.de)
+
+Video Screencast:
+
+<a href="http://youtu.be/z--ue6QSkCA"><img src="https://developers.google.com/youtube/images/YouTube-icon-full_color.png" alt="alt text" width="300""></a>
+
+
+Original Description:
 
 # twitter4j-swing-sample
 
