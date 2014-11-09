@@ -1,4 +1,4 @@
-#####This fork of Swing application, gives you an impression, which technical possabilities you have, when you migrate Swing to JavaFX. You find more details and a tutorial in the screencast below.#####
+#####This fork of a random Swing application gives you an impression, which technical possabilities you have, when you migrate Swing to JavaFX. You find more details and a tutorial in the screencast below.#####
 
 If you have further questions or migration support requests, just give me a ping (alexander.casall@saxsys.de)
 
